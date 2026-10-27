@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daraz Online Shopping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        /* Nav Bar Starts */
+        header {
+            background-color: orangered; /* Daraz Orange */
+            padding: 5px 80px 15px 80px;
+        }
+
+        .nav-top {
+            display: flex;
+            justify-content: flex-end;
+            gap: 25px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .nav-top a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .search-bar {
+            display: flex;
+            flex-grow: 1;
+            width: 700px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            height: 45px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 2px 0 0 2px;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            width: 45px;
+            height: 45px;
+            background-color: white;
+            border: none;
+            color: orangered;
+            font-size: 18px;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .cart-icon {
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Big Box Begins */
+        .main-box {
+            width: 1200px; /* Replaced max-width with simple width */
+            margin: 15px auto;
+            padding: 0 10px;
+        }
+
+        /* Hero Section 1 */
+        .hero-section1 {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .hero-slider {
+            flex: 1;
+        }
+
+        .hero-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .qr-code {
+            width: 200px;
+            background: white;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .qr-code img {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        /* Hero Section 2 */
+        .hero-section2 img {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* Header Bar */
+        .flash-sale {
+            margin-top: 10px;
+        }
+
+        .flash-sale-heading {
+            font-size: 20px;
+            color: grey;
+            margin-bottom: 10px;
+        }
+
+        .flash-sale-bar {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid white;
+        }
+
+        .flash-sale-bar h4 {
+            color: orangered;
+            font-size: 14px;
+        }
+
+        .shop-all-btn {
+            border: 1px solid orangered;
+            color: orangered;
+            padding: 6px 12px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .shop-all-btn:hover {
+            background-color: white;
+        }
+
+        /* Cards Grid */
+        .items-grid {
+            display: grid;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+        }
+
+        .card {
+            background: white;
+            height: 220px;
+            border: 1px solid white;
+            border-radius: 2px;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav Bar Starts -->
+    <header>
+        <!-- Top links -->
+        <div class="nav-top">
+            <a href="#">Save More on App</a>
+            <a href="#">Sell On Daraz</a>
+            <a href="#">Help & Support</a>
+            <a href="#">Login</a>
+            <a href="#">Sign Up</a>
+            <a href="#">زبان تبدیل کریں</a>
+        </div>
+
+        <!-- Main nav content -->
+        <div class="nav-bar">
+            <div class="logo">
+                <img src="https://lzd-img-global.slatic.net/us/domino/3b870cb043c7f8a9741cbf66329e294e.png" alt="Daraz Logo">
+            </div>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Search in Daraz">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Nav Bar Ends -->
+
+    <div class="main-box">
+
+        <!-- Hero Section 1 Begins -->
+        <div class="hero-section1">
+            <div class="hero-slider">
+                <img src="https://img.lazcdn.com/us/domino/53f03a65-4b01-4b87-b91e-8bd6ee31b73c_PK-1976-688.jpg_2200x2200q80.jpg_.avif">
+            </div>
+            <!-- QR Code Box -->
+            <div class="qr-code">
+                <img src="Capture.PNG">
+            </div>
+        </div>
+        <!-- Hero Section 1 Ends -->
+
+        <!-- Hero Section 2 Starts -->
+        <div class="hero-section2">
+            <img src="https://img.lazcdn.com/us/domino/287f4a00-9568-4c7e-a536-9a8eb14e242d_PK-1188-140.gif_2200x2200q80.gif_.webp" alt="Secondary Banner">
+        </div>
+        <!-- Hero Section 2 Ends -->
+
+        <!-- Flash Sale Starts -->
+        <div class="flash-sale">
+            <h3 class="flash-sale-heading">Flash Sale</h3>
+            <div class="flash-sale-bar">
+                <h4>On Sale Now</h4>
+                <a href="#" class="shop-all-btn">Shop All Products</a>
+            </div>
+        </div>
+
+        <!-- Items Box Begins -->
+        <div class="items-grid">
+            <div class="card"></div>
+        </div>
+        <!-- Items Box Ends -->
+
+    </div>
+
+</body>
+</html>

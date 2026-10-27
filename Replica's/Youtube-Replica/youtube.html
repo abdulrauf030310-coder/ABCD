@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar Styles */
+        nav {
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 56px;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 100;
+        }
+
+        .left-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .left-nav i.fa-bars {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+            gap: 2px;
+        }
+
+        .center-nav {
+            display: flex;
+            align-items: center;
+            width: 40%;
+            max-width: 600px;
+        }
+
+        .center-nav input {
+            width: 100%;
+            height: 40px;
+            padding: 0 16px;
+            border: 1px solid #ccc;
+            border-radius: 40px 0 0 40px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .center-nav button {
+            height: 40px;
+            padding: 0 20px;
+            border: 1px solid #ccc;
+            border-left: none;
+            background-color: #f8f8f8;
+            border-radius: 0 40px 40px 0;
+            cursor: pointer;
+        }
+
+        .right-nav button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            background: transparent;
+            color: #065fd4;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Main Layout Styles */
+        main {
+            display: flex;
+            gap: 24px;
+            padding: 24px;
+            max-width: 1750px;
+            margin: 0 auto;
+        }
+
+        .main-video {
+            flex: 2.8;
+        }
+
+        .video {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: black;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-description {
+            margin-top: 12px;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        /* Channel Info and Action Buttons Container for Same-Row Layout */
+        .channel-and-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .channel-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .channel-details img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .info h4 {
+            font-size: 1rem;
+        }
+
+        .info span {
+            font-size: 0.85rem;
+            color: #606060;
+        }
+
+        .subscribe button {
+            padding: 10px 16px;
+            background-color: #0f0f0f;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Action Buttons Row */
+        .buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .buttons button {
+            padding: 8px 16px;
+            border: none;
+            background-color: #f2f2f2;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .buttons button:hover {
+            background-color: #e5e5e5;
+        }
+
+        /* Suggestion Video Styles */
+        .suggestion-video {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .suggestion-card {
+            display: flex;
+            gap: 10px;
+        }
+
+        .suggestion-item {
+            width: 168px;
+            min-width: 168px;
+            position: relative;
+            padding-bottom: 94.5px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .suggestion-item iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .suggestion-details h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #0f0f0f;
+            line-height: 1.2rem;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .suggestion-details p {
+            font-size: 0.8rem;
+            color: #606060;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="left-nav">
+            <i class="fa-solid fa-bars"></i>
+            <a href="#" class="logo-container">
+                <i class="fa-brands fa-youtube" style="color: red;"></i>YouTube<sup style="font-size: xx-small;">PK</sup>
+            </a>
+        </div>
+        <div class="center-nav">
+            <input type="text" placeholder="Search">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="right-nav">
+            <button><i class="fa-regular fa-circle-user"></i>Sign In</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Main Video Section -->
+        <div class="main-video">
+            <div class="video">
+                <iframe src="https://www.youtube.com/embed/Ch4Sl0POBhU?si=M89eYWCIRoAGm-pA" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-description">
+                <span>How to Build a Personal Brand (Full Course)</span>
+            </div>
+
+            <!-- Unified Row for Channel Details, Subscribe Button, and Action Buttons -->
+            <div class="channel-and-actions">
+                <div class="channel-info">
+                    <div class="channel-details">
+                        <img src="https://via.placeholder.com/40" alt="Channel Avatar">
+                        <div class="info">
+                            <h4>Chaleb Ranson</h4>
+                            <span>1.5k Subscribers</span>
+                        </div>
+                    </div>
+                    <div class="subscribe">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button><i class="fa-regular fa-thumbs-up"></i> | <i class="fa-regular fa-thumbs-down"></i></button>
+                    <button><i class="fa-solid fa-share"></i> Share</button>
+                    <button>Ask</button>
+                    <button><i class="fa-regular fa-bookmark"></i> Save</button>
+                    <button><i class="fa-solid fa-ellipsis"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestion Videos -->
+        <div class="suggestion-video">
+            <div class="suggestion-card">
+                <div class="suggestion-item">
+                    <iframe src="https://www.youtube.com/embed/0XU_BI0IwHg?si=V-x5kPUCdJ7WIgA6"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="suggestion-details">
+                    <h4>Mastering Web Development in 2026</h4>
+                    <p>CodeAcademy • 125K views • 2 days ago</p>
+                </div>
+            </div>
+
+            <div class="suggestion-card">
+                <div class="suggestion-item">
+                    <iframe src="https://www.youtube.com/embed/FsxorSNJBaA?si=62eBXA6X9_-AIPtF"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="suggestion-details">
+                    <h4>Top 10 CSS Tricks You Didn't Know</h4>
+                    <p>DesignDeck • 45K views • 1 week ago</p>
+                </div>
+            </div>
+
+            <div class="suggestion-card">
+                <div class="suggestion-item">
+                    <iframe src="https://www.youtube.com/embed/pu4-3Rpr8L8?si=iobt4IHD6xJUwvgW"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="suggestion-details">
+                    <h4>JavaScript Async/Await Explained Simply</h4>
+                    <p>Tech Bro • 89K views • 3 days ago</p>
+                </div>
+            </div>
+
+            <div class="suggestion-card">
+                <div class="suggestion-item">
+                    <iframe src="https://www.youtube.com/embed/rXhFBC96pKM?si=gPSWaHf7zoZXt1Gk"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="suggestion-details">
+                    <h4>UI/UX Design Principles for Beginners</h4>
+                    <p>Creative Minds • 210K views • 1 month ago</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
