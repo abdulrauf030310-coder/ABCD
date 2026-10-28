@@ -1,0 +1,244 @@
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="brand">
+
+            <div class="brand-name">
+                Alberto Clocks
+            </div>
+
+            <div class="brand-text">
+
+
+                <p class="brand-description">
+                    Timeless watches and clocks crafted with
+                    elegance, precision, and attention to detail.
+                </p>
+
+            </div>
+
+            <div class="social-icons">
+
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Instagram">◎</a>
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="Pinterest">p</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>SHOP</h3>
+
+            <ul>
+
+                <li>
+                    <a href="gallery.html">Men's Watches</a>
+                </li>
+
+                <li>
+                    <a href="gallery.html">Women's Watches</a>
+                </li>
+
+                <li>
+                    <a href="gallery.html">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="technology.html">Technology</a>
+                </li>
+
+                <li>
+                    <a href="PRODUCT.HTML">Products</a>
+                </li>
+
+                <li>
+                    <a href="storelocator.html">Store Locator</a>
+                </li>
+
+                <li>
+                    <a href="PRODUCT.HTML">Luxury Watches</a>
+                </li>
+
+                <li>
+                    <a href="PRODUCT.HTML">Vintage Watches</a>
+                </li>
+
+                <li>
+                    <a href="PRODUCT.HTML">Smart Watches</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>CUSTOMER CARE</h3>
+
+            <ul>
+
+                <li>
+                    <a href="contactus.html">Contact Us</a>
+                </li>
+
+                <li>
+                    <a href="service.html">Support</a>
+                </li>
+
+                <li>
+                    <a href="service.html">Watch Repair</a>
+                </li>
+
+                <li>
+                    <a href="service.html">Appraisal Services</a>
+                </li>
+
+                <li>
+                    <a href="aboutus.html">Shipping & Delivery</a>
+                </li>
+
+                <li>
+                    <a href="aboutus.html">Returns & Refunds</a>
+                </li>
+
+                <li>
+                    <a href="contactus.html">FAQs</a>
+                </li>
+
+                <li>
+                    <a href="aboutus.html">Privacy Policy</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="footer-column newsletter">
+
+            <h3>ABOUT US</h3>
+
+            <ul>
+
+                <li>
+                    <a href="aboutus.html">About Us</a>
+                </li>
+
+                <li>
+                    <a href="aboutus.html">Our Story</a>
+                </li>
+
+                <li>
+                    <a href="technology.html">Technology</a>
+                </li>
+
+                <li>
+                    <a href="gallery.html">Gallery</a>
+                </li>
+
+                <li>
+                    <a href="storelocator.html">Store Locator</a>
+                </li>
+
+            </ul>
+
+            <br>
+
+            <h3>NEWSLETTER</h3>
+
+            <p class="newsletter-text">
+                Sign up for exclusive offers and updates
+                from Alberto Clocks.
+            </p>
+
+            <form class="newsletter-form">
+
+                <input
+                    type="email"
+                    placeholder="Enter your email"
+                >
+
+                <button type="submit">→</button>
+
+            </form>
+
+            <div class="social-icons">
+
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Instagram">◎</a>
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="Pinterest">p</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="map-wrapper">
+
+            <iframe
+                src="https://www.google.com/maps?q=Alberto%20Clocks&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+            <div class="location-card">
+
+                <div class="location-pin"></div>
+
+                <h4>
+                    ALBERTO CLOCKS
+                </h4>
+
+                <p>
+                    Quality watches and clocks,<br>
+                    expert repair and appraisal,<br>
+                    and trusted timepiece services.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Alberto Clocks. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let today = new Date().toDateString(); // aaj ki date
+    let savedDate = localStorage.getItem("visitDate");
+    let count = localStorage.getItem("todayVisitorCount");
+
+    if (savedDate !== today) {
+        // naya din hai to 1 se start karo
+        count = 1;
+        localStorage.setItem("visitDate", today);
+    } else {
+        count = parseInt(count) + 1;
+    }
+
+    localStorage.setItem("todayVisitorCount", count);
+    document.getElementById("visitorNumber").innerText = count;
+});
+</script>
+
+
+</body>
+</html>

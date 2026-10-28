@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+<style>
+    * { font-family: 'Manrope', sans-serif !important; }
+</style>
+</head>
+<body>
+    
+<div class="ticker">
+    <marquee>
+        <span id="datetime"></span> | Location:
+        <span id="location"></span>
+    </marquee>
+</div>
+
+<style>
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.ticker {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+.ticker marquee {
+    display: block;
+    margin: 0;
+    padding: 2px;
+    border: none;
+    background: #b88645;
+    color: black;
+    font-size: 20px;
+}
+
+</style>
+
+<script>
+    function updateTime() {
+        document.getElementById("datetime").innerHTML = new Date().toLocaleString();
+    }
+    updateTime();
+
+    setInterval(updateTime, 1000);
+
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        let lat = pos.coords.latitude.toFixed(2);
+        let lon = pos.coords.longitude.toFixed(2);
+        document.getElementById("location").innerHTML = `Latitude: ${lat}, Longitude: ${lon}`;
+    });
+</script>
+
+</body>
+</html>

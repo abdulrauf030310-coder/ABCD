@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+        <link rel="stylesheet" href="./css/nav.css">
+        <link rel="stylesheet" href="./css/tech.css">
+        <link rel="stylesheet" href="./css/footer.css">
+
+</head>
+<body>
+    
+
+<div id="header"></div>
+
+<div class="hero">
+    <div class="hero-text">
+        <p style="color: #b88645;">OUR TECHNOLOGY</p>
+       <h1>Innovation <br> Behind <span>Every</span> <br> <span>Moment</span></h1>
+        <p>At Alberto Clocks, technology is more than just engineering — it's the foundation of our promise.</p>
+        <a href="product.html"  style="color: #b88645;">EXPLORE OUR TECHNOLOGY →</a>
+    </div>
+    <div class="hero-image">
+        <img src="./img/techhero.jpg" alt="">
+    </div>
+</div>
+
+<div class="section">
+    <div class="image">
+        <img src="./img/tech2.jpg" alt="">
+    </div>
+    <div class="text">
+        <p style="color: #b88645;">QUARTZ MOVEMENT</p>
+        <h2>Precision <br> In Every Tick</h2>
+        <p>Quartz watches use a tiny quartz crystal that vibrates at a precise frequency when an electric current is applied.</p>
+        <a href="service.html" style="color: #b88645">LEARN MORE →</a>
+    </div>
+    <div class="side">
+        <p> <i class="fa-solid fa-gauge-simple-high"></i>  High Accuracy <br> (±15 seconds per month)</p>
+        <p> <i class="fa-solid fa-battery-full"></i>  Long Battery Life <br> (Up to 3-5 years)</p>
+        <p><i class="fa-solid fa-wrench"></i>  Low Maintenance</p>
+    </div>
+</div>
+
+<div class="section2">
+    <div class="text">
+        <p style="color: #b88645;">AUTOMATIC MOVEMENT</p>
+        <h2>Powered by <br> <span>Your Motion</span></h2>
+        <p>Automatic watches harness the natural motion of your wrist to wind the mainspring.</p>
+        <a href="gallery.html" style="color: #b88645;">DISCOVER AUTOMATIC →</a>
+    </div>
+    <div class="image2">
+        <img src="./img/tech3.jpg" alt="">
+    </div>
+</div>
+
+<div class="section">
+    <div class="image">
+        <img src="./img/tech4.jpg" alt="">
+    </div>
+    <div class="text">
+        <p style="color: #b88645;">SMART WATCH TECHNOLOGY</p>
+        <h2>More Than <br> Just Time</h2>
+        <p>Our smartwatches combine style with intelligence. Track your health, get notifications.</p>
+        <a href="gallery.html"  style="color: #b88645;">DISCOVER SMART FEATURES →</a>
+    </div>
+    <div class="side">
+        <p> <i class="fa-solid fa-location-dot"></i>
+Heart Rate Monitoring</p>
+        <p> <i class="fa-solid fa-comment"></i> Notifications</p>
+        <p> <i class="fa-solid fa-person-running"></i> Activity & Fitness</p>
+        <p> <i class="fa-solid fa-map-pin"></i>GPS & More</p>
+    </div>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <img src="./img/tech5.jpg" alt="">
+        <div class="card-content" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; width: 100%;">
+            <div>
+                <p style="color: #b88645;">WATER RESISTANCE</p>
+                <h3>Built for Real Life</h3>
+                <p>Advanced sealing technology protects your watch from water, dust and everyday adventures.</p>
+            </div>
+            <a href="gallery.html" style="color: #b88645; margin: 16px;">LEARN MORE →</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="./img/tech6.jpg" alt="">
+        <div class="card-content" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; width: 100%;">
+            <div>
+                <p style="color: #b88645;">MODERN MATERIALS</p>
+                <h3>Strength Meets Style</h3>
+                <p>From stainless steel to sapphire crystal and premium leather straps.</p>
+            </div>
+            <a href="gallery.html" style="color: #b88645; margin: 16px;">LEARN MORE →</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="./img/tech7.jpg" alt="">
+        <div class="card-content" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; width: 100%;">
+            <div>
+                <p style="color: #b88645;"> PRECISION & ACCURACY</p>
+                <h3>Engineered for Excellence</h3>
+                <p>Every Alberto Clocks timepiece is tested for precision, so you can count on it.</p>
+            </div>
+            <a href="gallery.html" style="color: #b88645; margin: 16px;">LEARN MORE →</a>
+        </div>
+    </div>
+</div>
+
+
+<div id="ticker"></div>
+<div id="footer"></div>
+
+<script>
+fetch('header.html')
+.then(r => r.text())
+.then(data => {
+    document.getElementById('header').innerHTML = data;
+
+    let count = +localStorage.getItem("visits") || 0;
+    let nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav.type === "reload") {
+        count++;
+        localStorage.setItem("visits", count);
+    }
+
+    document.getElementById("visitorNumber").textContent = count;
+});
+</script>
+
+<script>
+    fetch('ticker.html')
+        .then(response => response.text())
+        .then(data => {
+            const container = document.getElementById('ticker');
+            container.innerHTML = data;
+
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                oldScript.replaceWith(newScript);
+            });
+        })
+        .catch(error => console.error('Ticker error:', error));
+</script>
+
+
+<script>
+fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
+
+</script>
+
+
+
+</body>
+</html>

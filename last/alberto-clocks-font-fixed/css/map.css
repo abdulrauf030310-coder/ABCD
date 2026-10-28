@@ -1,0 +1,328 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #faf9f6;
+    font-family: 'Manrope', sans-serif;
+    color: #333;
+}
+
+
+.sitemap-hero {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+
+.sitemap-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 700px;
+    padding: 0 20px;
+}
+
+.sitemap-hero-content h1 {
+    margin: 15px 0;
+    line-height: 1.2;
+}
+
+.sitemap-hero-content p {
+    font-size: 16px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+
+.sitemap-container {
+    max-width: 1200px;
+    margin: 50px auto 80px auto;
+    padding: 0 20px;
+}
+
+.sitemap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+
+.sitemap-card {
+    background:  #f0e5d8;
+    padding: 35px 30px;
+    border-radius: 10px;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid #b88645;
+}
+
+.sitemap-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(184, 134, 69, 0.1);
+}
+
+.card-icon {
+    transition:
+        color 0.5s ease,
+        transform 0.7s ease;
+}
+
+
+.sitemap-card h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    color: #111;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #d6a65c;;
+    padding-bottom: 8px;
+}
+
+.sitemap-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    
+}
+
+
+.sitemap-card ul li {
+    margin-bottom: 12px;
+}
+
+.sitemap-card ul li a {
+    text-decoration: none;
+    color:  #0F2D26;
+    font-size: 15px;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    display: inline-block;
+}
+
+.sitemap-card ul li a:hover {
+    color: #b88645;
+    padding-left: 6px;
+}
+
+
+
+
+.hero-bg-img {
+    animation: heroZoom 8s ease-out;
+}
+
+.sitemap-hero-content {
+    animation: heroText 1s ease;
+}
+
+.sitemap-card {
+    transition:
+        transform 0.6s ease,
+        box-shadow 0.6s ease,
+        border-color 0.4s ease;
+}
+
+
+
+
+.sitemap-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.sitemap-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.sitemap-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.sitemap-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.sitemap-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.sitemap-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+
+
+.sitemap-card:hover {
+    transform: translateY(-10px);
+    border-color: #0F2D26;
+    box-shadow: 0 25px 55px rgba(15, 45, 38, 0.18);
+}
+
+.card-icon {
+    transition:
+        background 0.5s ease,
+        color 0.5s ease,
+        transform 0.7s ease,
+        box-shadow 0.5s ease;
+}
+.gold-text {
+    color: #d6a65c;
+}
+
+.sitemap-card:hover .card-icon {
+    background: #0F2D26;
+    color: #d6a65c;
+    transform: rotateY(180deg);
+    box-shadow: 0 8px 25px rgba(15,45,38,0.18);
+}
+.card-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    background: #f0e4d4;
+    border: 1px solid #d6b98f;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 26px;
+    color: #a57436;
+
+    transition:
+        background 0.5s ease,
+        color 0.5s ease,
+        transform 0.7s ease,
+        box-shadow 0.5s ease;
+}
+
+
+.sitemap-card:hover .card-icon {
+    background: #0F2D26;
+    color: #d6a65c;
+    transform: rotateY(180deg);
+    box-shadow: 0 8px 25px rgba(15,45,38,0.18);
+}
+/* Link Animation */
+
+.sitemap-card ul li a {
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.sitemap-card ul li a:hover {
+    color: #b88645;
+    padding-left: 8px;
+}
+
+
+
+
+@keyframes heroZoom {
+
+    from {
+        transform: scale(1.08);
+    }
+
+    to {
+        transform: scale(1);
+    }
+
+}
+
+
+
+@keyframes heroText {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+
+@keyframes cardShow {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+
+
+
+
+@keyframes iconRotate {
+
+    0% {
+        transform: rotate(0deg) scale(1);
+        color: #b88645;
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.15);
+        color: #4a3829;
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+        color: #b88645;
+    }
+
+}
+
+
+
+
+
+.sitemap-card:hover .card-icon {
+    color: #d6a65c;
+    transform: rotateY(180deg);
+}
+
+
+
+
+
+

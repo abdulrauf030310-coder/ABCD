@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="products.css">
+    <link rel="stylesheet" href="./css/nav.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/footer.css">
+
+
+<style>
+    * { font-family: 'Manrope', sans-serif !important; }
+</style>
+</head>
+<body>
+
+
+  <div id="header"></div>
+
+  
+  <section class="hero-section">
+    <div class="brand-logo">ALBERTO <span>WATCH CO.</span></div>
+    <h1>Our Product Catalog</h1>
+    <p>Explore luxury, vintage, and smart watch craftsmanship</p>
+  </section>
+
+  
+  <section class="controls-container">
+    <div class="category-filters">
+      <button class="filter-btn active" data-category="All">All Timepieces</button>
+      <button class="filter-btn" data-category="Luxury">Luxury</button>
+      <button class="filter-btn" data-category="Vintage">Vintage</button>
+      <button class="filter-btn" data-category="Smart Watches">Smart Watches</button>
+      <button class="filter-btn" data-category="Wall Clocks">Wall Clocks</button>
+    </div>
+
+    <div class="view-switcher">
+      <button class="switch-btn active" id="btnGridView">Grid View</button>
+      <button class="switch-btn" id="btnListView">Price List</button>
+    </div>
+  </section>
+
+  
+  <main class="products-grid" id="productGrid"></main>
+
+  <!-- Price List View (Table Format) -->
+  <section class="price-list-wrapper" id="priceListWrapper" style="display: none;">
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Timepiece</th>
+          <th>Category</th>
+          <th>Rating</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="priceTableBody"></tbody>
+    </table>
+  </section>
+
+  
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-card">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <div class="modal-content">
+        <div class="modal-img-container">
+          <img id="modalImg" src="" alt="Product Detail">
+        </div>
+        <div class="modal-info">
+          <span id="modalBadge" class="modal-badge"></span>
+          <h2 id="modalTitle"></h2>
+          <div class="modal-meta">
+            <span id="modalRating" class="modal-rating"></span>
+            <span id="modalPrice" class="modal-price"></span>
+          </div>
+          <p id="modalDesc"></p>
+          <button class="inquire-btn">Inquire Stock</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+
+<div id="ticker"></div>
+    <div id="footer"></div>
+
+
+  <script src="script.js"></script>
+
+<script>
+fetch('header.html')
+.then(r => r.text())
+.then(data => {
+    document.getElementById('header').innerHTML = data;
+
+    let count = +localStorage.getItem("visits") || 0;
+    let nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav.type === "reload") {
+        count++;
+        localStorage.setItem("visits", count);
+    }
+
+    document.getElementById("visitorNumber").textContent = count;
+});
+</script>
+<script>
+    fetch('ticker.html')
+        .then(response => response.text())
+        .then(data => {
+            const container = document.getElementById('ticker');
+            container.innerHTML = data;
+
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                oldScript.replaceWith(newScript);
+            });
+        })
+        .catch(error => console.error('Ticker error:', error));
+</script>
+
+
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store Locator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/store.css">
+    <link rel="stylesheet" href="./css/footer.css">
+
+<style>
+    * { font-family: 'Manrope', sans-serif !important; }
+</style>
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+<div class="container">
+
+    <h1>Store Locator</h1>
+    <p class="a">Find an Alberto store near you</p>
+
+    
+    <input id="search" type="text" placeholder="Enter city or area">
+    <button onclick="searchStore()">Search</button>
+
+    
+    <select id="city" onchange="filterStore()">
+        <option value="all">All Cities</option>
+    </select>
+
+    <select id="service" onchange="filterStore()">
+        <option value="all">All Services</option>
+    </select>
+
+    <button onclick="myLocation()">Find Near Me</button>
+
+    <div class="main">
+        
+        <div id="stores"></div>
+
+        
+        <iframe
+            id="map"
+            src="https://www.google.com/maps?q=Karachi,Pakistan&output=embed">
+        </iframe>
+    </div>
+</div>
+
+
+<div id="ticker"></div>
+<div id="footer"></div>
+
+<script>
+fetch('header.html')
+.then(r => r.text())
+.then(data => {
+    document.getElementById('header').innerHTML = data;
+
+    let count = +localStorage.getItem("visits") || 0;
+    let nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav.type === "reload") {
+        count++;
+        localStorage.setItem("visits", count);
+    }
+
+    document.getElementById("visitorNumber").textContent = count;
+});
+</script><script src="./js/store.js"></script>
+
+<script>
+    fetch('ticker.html')
+        .then(response => response.text())
+        .then(data => {
+            const container = document.getElementById('ticker');
+            container.innerHTML = data;
+
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                oldScript.replaceWith(newScript);
+            });
+        })
+        .catch(error => console.error('Ticker error:', error));
+</script>
+
+
+
+<script>
+
+
+fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
+
+</script>
+
+
+</body>
+</html>

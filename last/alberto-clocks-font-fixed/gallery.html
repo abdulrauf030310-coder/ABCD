@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/GALLERY.CSS">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/footer.css">
+
+<style>
+    * { font-family: 'Manrope', sans-serif !important; }
+</style>
+</head>
+<body>
+    
+<div id="header"></div>
+    
+   <h2 class="exclusive-title">Our Exclusive Collection</h2>
+
+    
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="showCategory('all')">All Collection</button>
+        <button class="filter-btn" onclick="showCategory('men-watch')">Men Watches</button>
+        <button class="filter-btn" onclick="showCategory('women-watch')">Women Watches</button>
+        <button class="filter-btn" onclick="showCategory('vintage-watch')">Vintage Watches</button>
+        <button class="filter-btn" onclick="showCategory('wall-clock')">Wall Clocks</button>
+        <button class="filter-btn" onclick="showCategory('table-clock')">Table Clocks</button>
+    </div>
+
+    
+    <div class="gallery-grid" id="itemGrid"></div>
+
+    
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" alt="Clock Detail">
+            <h2 id="modalTitle"></h2>
+            <p id="modalCategory"></p>
+            <p id="modalPrice" class="price" style="color:  #b88645;"></p>
+            <p class="modal-desc"; style="color: black;" ,  >Handcrafted with premium materials, precision movement, and designed to match your elite lifestyle.</p>
+        </div>
+    </div>
+    
+ 
+
+
+
+<div id="ticker"></div>
+
+    <div id="footer"></div>
+<script>
+fetch('header.html')
+.then(r => r.text())
+.then(data => {
+    document.getElementById('header').innerHTML = data;
+
+    let count = +localStorage.getItem("visits") || 0;
+    let nav = performance.getEntriesByType("navigation")[0];
+
+    if (nav.type === "reload") {
+        count++;
+        localStorage.setItem("visits", count);
+    }
+
+    document.getElementById("visitorNumber").textContent = count;
+});
+</script>
+
+
+
+
+
+    <script src="./js/GALLERY.JS"></script>
+
+    <script>
+    fetch('ticker.html')
+        .then(response => response.text())
+        .then(data => {
+            const container = document.getElementById('ticker');
+            container.innerHTML = data;
+
+            container.querySelectorAll('script').forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.textContent = oldScript.textContent;
+                oldScript.replaceWith(newScript);
+            });
+        })
+        .catch(error => console.error('Ticker error:', error));
+</script>
+
+
+    <script>
+fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
+
+</script>
+</body>
+</html>
