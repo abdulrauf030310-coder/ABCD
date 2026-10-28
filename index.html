@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apex Motors | Premium Car Showroom</title>
+<meta name="description" content="Apex Motors - premium new and pre-owned cars, finance and test drives.">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="#home"><i class="bi bi-lightning-charge-fill"></i> APEX<span>MOTORS</span></a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><i class="bi bi-list text-white fs-1"></i></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#featured">Featured</a></li>
+        <li class="nav-item"><a class="nav-link" href="#inventory">Inventory</a></li>
+        <li class="nav-item"><a class="nav-link" href="#showroom">Showroom</a></li>
+        <li class="nav-item"><a class="nav-link" href="#finance">Finance</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-apex">Book Test Drive</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="home" class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80">
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content text-center">
+    <p class="eyebrow reveal">Premium Cars &bull; Trusted Since 2005</p>
+    <h1 class="reveal">Drive the <span class="typed" data-words='["Extraordinary","Future","Dream","Legend"]'></span></h1>
+    <p class="lead reveal">Hand-picked luxury, sport and electric vehicles with transparent pricing and white-glove service.</p>
+    <div class="reveal">
+      <a href="#inventory" class="btn btn-apex btn-lg me-2">Explore Inventory</a>
+      <a href="#showroom" class="btn btn-outline-light btn-lg"><i class="bi bi-play-circle me-1"></i> Showroom Tour</a>
+    </div>
+  </div>
+  <a href="#featured" class="scroll-down"><i class="bi bi-chevron-double-down"></i></a>
+</header>
+
+<!-- SEARCH BAR -->
+<section class="search-strip">
+  <div class="container">
+    <form class="row g-2 align-items-end" id="quickSearch">
+      <div class="col-md-3"><label>Brand</label>
+        <select class="form-select" id="qBrand"><option value="all">All Brands</option><option>BMW</option><option>Mercedes</option><option>Porsche</option><option>Audi</option><option>Ford</option><option>Tesla</option></select></div>
+      <div class="col-md-3"><label>Type</label>
+        <select class="form-select" id="qType"><option value="all">Any Type</option><option>sedan</option><option>suv</option><option>sport</option><option>electric</option></select></div>
+      <div class="col-md-3"><label>Max Price: <b id="priceLabel">$200,000</b></label>
+        <input type="range" class="form-range" id="qPrice" min="30000" max="200000" step="5000" value="200000"></div>
+      <div class="col-md-3"><button class="btn btn-apex w-100" type="submit"><i class="bi bi-search"></i> Search Cars</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats py-5">
+  <div class="container"><div class="row text-center g-4">
+    <div class="col-6 col-md-3 reveal"><h2 class="counter" data-target="1500">0</h2><p>Cars Sold</p></div>
+    <div class="col-6 col-md-3 reveal"><h2 class="counter" data-target="20">0</h2><p>Years Experience</p></div>
+    <div class="col-6 col-md-3 reveal"><h2 class="counter" data-target="35">0</h2><p>Premium Brands</p></div>
+    <div class="col-6 col-md-3 reveal"><h2 class="counter" data-target="98">0</h2><p>% Happy Clients</p></div>
+  </div></div>
+</section>
+
+<!-- FEATURED SLIDER -->
+<section id="featured" class="py-6">
+  <div class="container">
+    <div class="section-head text-center reveal"><span>Spotlight</span><h2>Featured Vehicles</h2></div>
+    <div id="featCarousel" class="carousel slide carousel-fade reveal" data-bs-ride="carousel" data-bs-interval="5000">
+      <div class="carousel-indicators">
+        <button data-bs-target="#featCarousel" data-bs-slide-to="0" class="active"></button>
+        <button data-bs-target="#featCarousel" data-bs-slide-to="1"></button>
+        <button data-bs-target="#featCarousel" data-bs-slide-to="2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80" alt="Porsche 911">
+          <div class="carousel-caption"><h3>Porsche 911 Carrera S</h3><p>3.0L Twin-Turbo &bull; 443 HP &bull; 0-100 in 3.5s</p><button class="btn btn-apex btn-sm quick-view" data-name="Porsche 911 Carrera S" data-price="$135,000" data-img="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80">View Details</button></div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1600&q=80" alt="BMW M4">
+          <div class="carousel-caption"><h3>BMW M4 Competition</h3><p>3.0L Inline-6 &bull; 503 HP &bull; Carbon Package</p><button class="btn btn-apex btn-sm quick-view" data-name="BMW M4 Competition" data-price="$89,500" data-img="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80">View Details</button></div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1600&q=80" alt="Ferrari">
+          <div class="carousel-caption"><h3>Ferrari Roma</h3><p>V8 Turbo &bull; 612 HP &bull; Italian Elegance</p><button class="btn btn-apex btn-sm quick-view" data-name="Ferrari Roma" data-price="$245,000" data-img="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80">View Details</button></div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" data-bs-target="#featCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+      <button class="carousel-control-next" data-bs-target="#featCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS MARQUEE -->
+<section class="brands">
+  <div class="marquee"><div class="marquee-track">
+    <span>BMW</span><span>MERCEDES</span><span>PORSCHE</span><span>AUDI</span><span>FORD</span><span>TESLA</span><span>LEXUS</span><span>FERRARI</span>
+    <span>BMW</span><span>MERCEDES</span><span>PORSCHE</span><span>AUDI</span><span>FORD</span><span>TESLA</span><span>LEXUS</span><span>FERRARI</span>
+  </div></div>
+</section>
+
+<!-- INVENTORY -->
+<section id="inventory" class="py-6 bg-dark-2">
+  <div class="container">
+    <div class="section-head text-center reveal"><span>Our Collection</span><h2>Browse Inventory</h2></div>
+    <div class="filters text-center mb-4 reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="sedan">Sedan</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="sport">Sport</button>
+      <button class="filter-btn" data-filter="electric">Electric</button>
+    </div>
+    <div class="row g-4" id="carGrid"></div>
+    <p class="text-center text-muted mt-4 d-none" id="noResults">No cars match your filters. Try widening your search.</p>
+  </div>
+</section>
+
+<!-- SHOWROOM VIDEO -->
+<section id="showroom" class="showroom">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 reveal">
+        <div class="section-head"><span>Experience</span><h2>Step Inside Our Showroom</h2></div>
+        <p>Over 25,000 sq ft of climate-controlled space, a private delivery lounge, an in-house detailing studio and a certified service centre &mdash; everything under one roof.</p>
+        <ul class="feature-list">
+          <li><i class="bi bi-check-circle-fill"></i> 150-point inspection on every vehicle</li>
+          <li><i class="bi bi-check-circle-fill"></i> 5-year warranty on certified pre-owned</li>
+          <li><i class="bi bi-check-circle-fill"></i> Free home delivery &amp; trade-in valuation</li>
+        </ul>
+        <button class="btn btn-apex mt-2" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-play-fill"></i> Watch Showroom Film</button>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="video-card" data-bs-toggle="modal" data-bs-target="#videoModal">
+          <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80" alt="Showroom">
+          <span class="play-btn"><i class="bi bi-play-fill"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="py-6">
+  <div class="container">
+    <div class="section-head text-center reveal"><span>Why Apex</span><h2>The Apex Difference</h2></div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3 reveal"><div class="why-card"><i class="bi bi-shield-check"></i><h5>Certified Quality</h5><p>Every car passes a rigorous multi-point inspection.</p></div></div>
+      <div class="col-md-6 col-lg-3 reveal"><div class="why-card"><i class="bi bi-cash-coin"></i><h5>Best Price</h5><p>Transparent, competitive pricing with no hidden fees.</p></div></div>
+      <div class="col-md-6 col-lg-3 reveal"><div class="why-card"><i class="bi bi-tools"></i><h5>Expert Service</h5><p>Factory-trained technicians and genuine parts.</p></div></div>
+      <div class="col-md-6 col-lg-3 reveal"><div class="why-card"><i class="bi bi-headset"></i><h5>24/7 Support</h5><p>Roadside help and concierge always on call.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCE -->
+<section id="finance" class="finance py-6">
+  <div class="container">
+    <div class="section-head text-center reveal"><span>Easy Payments</span><h2>Finance Calculator</h2></div>
+    <div class="row justify-content-center"><div class="col-lg-9 calc-card reveal">
+      <div class="row g-4">
+        <div class="col-md-7">
+          <label>Car Price: <b id="lPrice"></b></label><input type="range" class="form-range" id="cPrice" min="20000" max="250000" step="1000" value="80000">
+          <label>Down Payment: <b id="lDown"></b></label><input type="range" class="form-range" id="cDown" min="0" max="100000" step="1000" value="16000">
+          <label>Interest Rate: <b id="lRate"></b></label><input type="range" class="form-range" id="cRate" min="1" max="15" step="0.1" value="5.5">
+          <label>Term: <b id="lTerm"></b></label><input type="range" class="form-range" id="cTerm" min="12" max="84" step="12" value="60">
+        </div>
+        <div class="col-md-5 text-center d-flex flex-column justify-content-center result-box">
+          <p>Estimated Monthly Payment</p><h2 id="monthly">$0</h2><small>Total interest: <b id="totalInt">$0</b></small>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-6 bg-dark-2">
+  <div class="container">
+    <div class="section-head text-center reveal"><span>Testimonials</span><h2>What Our Clients Say</h2></div>
+    <div id="testiCarousel" class="carousel slide reveal" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active"><div class="testi"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt=""><p>"The smoothest car buying experience I've had. Apex found the exact spec I wanted within two days."</p><h6>Daniel R.</h6><div class="stars">★★★★★</div></div></div>
+        <div class="carousel-item"><div class="testi"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""><p>"Fantastic finance team and zero pressure. My new SUV was delivered to my door, spotless."</p><h6>Sarah K.</h6><div class="stars">★★★★★</div></div></div>
+        <div class="carousel-item"><div class="testi"><img src="https://randomuser.me/api/portraits/men/65.jpg" alt=""><p>"Honest valuation on my trade-in and a stunning showroom. Highly recommended."</p><h6>Imran A.</h6><div class="stars">★★★★★</div></div></div>
+      </div>
+      <div class="carousel-indicators position-static mt-3">
+        <button data-bs-target="#testiCarousel" data-bs-slide-to="0" class="active"></button>
+        <button data-bs-target="#testiCarousel" data-bs-slide-to="1"></button>
+        <button data-bs-target="#testiCarousel" data-bs-slide-to="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-6">
+  <div class="container">
+    <div class="section-head text-center reveal"><span>Get In Touch</span><h2>Book a Test Drive</h2></div>
+    <div class="row g-5">
+      <div class="col-lg-6 reveal">
+        <form id="contactForm" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6"><input type="text" class="form-control" id="fName" placeholder="Full Name" required><div class="invalid-feedback">Please enter your name.</div></div>
+            <div class="col-md-6"><input type="email" class="form-control" id="fEmail" placeholder="Email" required><div class="invalid-feedback">Enter a valid email.</div></div>
+            <div class="col-md-6"><input type="tel" class="form-control" id="fPhone" placeholder="Phone" required><div class="invalid-feedback">Enter your phone number.</div></div>
+            <div class="col-md-6"><input type="date" class="form-control" id="fDate" required><div class="invalid-feedback">Pick a date.</div></div>
+            <div class="col-12"><select class="form-select" id="fCar" required><option value="">Select a car</option></select><div class="invalid-feedback">Choose a car.</div></div>
+            <div class="col-12"><textarea class="form-control" rows="4" placeholder="Message (optional)"></textarea></div>
+            <div class="col-12"><button class="btn btn-apex btn-lg w-100" type="submit">Request Test Drive</button></div>
+          </div>
+          <div class="alert alert-success mt-3 d-none" id="formOk"><i class="bi bi-check-circle"></i> Thank you! We'll confirm your test drive shortly.</div>
+        </form>
+      </div>
+      <div class="col-lg-6 reveal">
+        <div class="map-wrap"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=67.0%2C24.8%2C67.1%2C24.9&layer=mapnik" loading="lazy" title="Map"></iframe></div>
+        <ul class="contact-list mt-3">
+          <li><i class="bi bi-geo-alt-fill"></i> 123 Auto Avenue, Karachi, Pakistan</li>
+          <li><i class="bi bi-telephone-fill"></i> +92 300 000 0000</li>
+          <li><i class="bi bi-envelope-fill"></i> sales@apexmotors.example</li>
+          <li><i class="bi bi-clock-fill"></i> Mon&ndash;Sat 10:00 &ndash; 20:00</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container text-center">
+    <a class="navbar-brand" href="#home"><i class="bi bi-lightning-charge-fill"></i> APEX<span>MOTORS</span></a>
+    <div class="social my-3"><a href="#"><i class="bi bi-facebook"></i></a><a href="#"><i class="bi bi-instagram"></i></a><a href="#"><i class="bi bi-youtube"></i></a><a href="#"><i class="bi bi-twitter-x"></i></a></div>
+    <small>&copy; <span id="yr"></span> Apex Motors. All rights reserved.</small>
+  </div>
+</footer>
+
+<button id="toTop"><i class="bi bi-arrow-up"></i></button>
+
+<!-- QUICK VIEW MODAL -->
+<div class="modal fade" id="carModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content">
+  <div class="modal-header border-0"><h5 class="modal-title" id="mTitle"></h5><button class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body pt-0"><img id="mImg" class="img-fluid rounded mb-3 w-100" alt=""><div class="d-flex justify-content-between align-items-center"><h3 class="text-apex mb-0" id="mPrice"></h3><a href="#contact" class="btn btn-apex" data-bs-dismiss="modal">Book Test Drive</a></div></div>
+</div></div></div>
+
+<!-- VIDEO MODAL -->
+<div class="modal fade" id="videoModal" tabindex="-1"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content bg-black">
+  <div class="modal-header border-0"><button class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+  <div class="modal-body pt-0"><div class="ratio ratio-16x9"><video id="showVideo" controls playsinline poster="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80"><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"></video></div></div>
+</div></div></div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
