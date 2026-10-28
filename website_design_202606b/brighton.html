@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc=" crossorigin="anonymous"></script>
+
+    <style>
+        #box{
+            border: 2px solid orangered ;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="box">
+        This is Box
+    </div>
+
+    <!-- <button id="hide"> Hide </button> 
+     <button id="show"> Show </button> -->
+
+    <button id="show_and_hide" > Hide </button>
+
+    <script>
+        // $('#hide').click( function(){
+        //    $('#box').hide()
+        // })
+
+        // $('#show').click( function(){
+        //     $('#box').show()
+        // })
+
+
+        $('#show_and_hide').click( function(){
+            
+            let value = $('#show_and_hide').text()
+            console.log(value);
+            
+            if( value == "Hide" ){
+                $('#box').hide()
+                $('#show_and_hide').text("Show")
+            }else{
+                $('#box').show()
+                $('#show_and_hide').text("Hide")
+            }
+
+        })
+
+    </script>
+
+</body>
+</html>

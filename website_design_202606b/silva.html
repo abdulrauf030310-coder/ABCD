@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     
+      <input type="number" placeholder="Total Marks" id="total_marks">   
+      <input type="number" placeholder="Obtained Marks" id="obtain_marks">
+
+      <button onclick="calculate_percentage()"> Calculate </button>
+
+      <div id="percentage"></div>
+
+      <script>
+  
+          function calculate_percentage(){
+            let  total_marks = Number( document.getElementById("total_marks").value)
+            let obtain_marks = Number( document.getElementById("obtain_marks").value)
+
+            let percentage = (obtain_marks / total_marks ) * 100
+
+            document.getElementById("percentage").innerHTML = percentage
+         }  
+ 
+      </script>
+</body>
+</html>

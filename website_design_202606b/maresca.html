@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Document </title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 85%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Percentage Calculator</h2>
+
+  <label for="num1"> First Number: </label>
+  <br>
+  <input type="number" id="num1">
+  <br>
+  <label for="num2"> Second Number: </label>
+  <br>
+  <input type="number" id="num2">
+  <br>
+  <button onclick="calculatePercentage()"> Calculate </button>
+
+  <div class="result" id="result"> 0% </div>
+
+  <script>
+
+    function calculatePercentage( ) {
+
+      let number1 = parseFloat(document.getElementById('num1').value);
+      let number2 = parseFloat(document.getElementById('num2').value);
+        
+      if (isNaN(number1) || isNaN(number2)) {
+        document.getElementById('result').innerText = "Please enter valid numbers";
+        return;
+      }
+
+      if (number2 === 0) {
+        document.getElementById('result').innerText = "Total cannot be 0";
+        return;
+      }
+
+      let percentage = (number1 / number2) * 100;
+
+      document.getElementById('result').innerText = percentage.toFixed(2).replace(/\.00$/, '') + "%";
+
+    }
+  </script>
+
+</body>
+</html>

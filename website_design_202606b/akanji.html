@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Nav Bar </title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --nav-height: 64px;
+    }
+
+    body {
+      font-family: var( --font-sans ) ;
+      padding-top: var(--nav-height);
+      min-height: 150vh;
+      letter-spacing: -0.011em;
+    }
+
+    .site-header {
+      height: var(--nav-height);
+      background-color: var(--bs-body-bg);
+      border-bottom: 1px solid var(--bs-border-color-translucent);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      z-index: 1030;
+    }
+
+    .site-header.is-scrolled {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-logo {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--bs-body-color);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      background-color: var(--bs-body-color);
+      color: var(--bs-body-bg);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-link-custom {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--bs-secondary-color);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .nav-link-custom:hover {
+      color: var(--bs-body-color);
+      background-color: var(--bs-tertiary-bg);
+    }
+
+    .nav-link-custom.active {
+      color: var(--bs-body-color);
+      font-weight: 600;
+    }
+
+    .search-trigger {
+      font-size: 0.825rem;
+      color: var(--bs-secondary-color);
+      background-color: var(--bs-tertiary-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 6px;
+      padding: 0.35rem 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease;
+    }
+
+    .search-trigger:hover {
+      border-color: var(--bs-border-color-aria-hover, #a1a1aa);
+      color: var(--bs-body-color);
+    }
+
+    .kbd-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 0.1rem 0.35rem;
+      background: var(--bs-body-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 4px;
+      color: var(--bs-secondary-color);
+    }
+
+    .dropdown-menu-custom {
+      font-size: 0.88rem;
+      border-radius: 8px;
+      padding: 0.35rem;
+      min-width: 200px;
+    }
+
+    .dropdown-menu-custom .dropdown-item {
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-weight: 500;
+      color: var(--bs-secondary-color);
+    }
+
+    .dropdown-menu-custom .dropdown-item:hover {
+      color: var(--bs-body-color);
+      background-color: var(--bs-tertiary-bg);
+    }
+
+    .theme-btn {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      color: var(--bs-secondary-color);
+      border: 1px solid transparent;
+    }
+
+    .theme-btn:hover {
+      background-color: var(--bs-tertiary-bg);
+      color: var(--bs-body-color);
+    }
+
+    .btn-action {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header fixed-top d-flex align-items-center" id="siteHeader">
+    <div class="container-fluid px-lg-4">
+      <div class="d-flex align-items-center justify-content-between">
+
+        <div class="d-flex align-items-center gap-3">
+          <a class="brand-logo d-flex align-items-center gap-2" href="#">
+            <span class="brand-mark">
+              <i class="bi bi-terminal-fill fs-6"></i>
+            </span>
+            <span> One UI </span>
+          </a>
+
+          <div class="vr d-none d-lg-block my-1 opacity-25"></div>
+
+          <nav class="d-none d-lg-flex align-items-center gap-1">
+            <a href="#overview" class="nav-link-custom active">Overview</a>
+            <a href="#docs" class="nav-link-custom">Docs</a>
+            <a href="#components" class="nav-link-custom">Components</a>
+            
+            <div class="dropdown">
+              <a href="#" class="nav-link-custom dropdown-toggle d-inline-flex align-items-center gap-1" data-bs-toggle="dropdown" aria-expanded="false">
+                Ecosystem
+              </a>
+              <ul class="dropdown-menu dropdown-menu-custom shadow-sm border mt-2">
+                <li><a class="dropdown-item" href="#">CLI Tools</a></li>
+                <li><a class="dropdown-item" href="#">Integrations</a></li>
+                <li><a class="dropdown-item" href="#">Templates</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#">Changelog</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+
+          <button type="button" class="search-trigger me-1 d-none d-sm-flex" onclick="alert('Open search modal')">
+            <i class="bi bi-search"></i>
+            <span>Search...</span>
+            <span class="kbd-badge ms-2">⌘K</span>
+          </button>
+
+          <button class="theme-btn" id="themeToggler" type="button" aria-label="Toggle theme">
+            <i class="bi bi-moon-fill fs-6" id="themeIcon"></i>
+          </button>
+
+          <a href="#login" class="btn btn-outline-secondary btn-action d-none d-sm-inline-block">
+            Sign In
+          </a>
+
+          <a href="#deploy" class="btn btn-dark btn-action">
+            Deploy
+          </a>
+
+          <button class="btn btn-sm p-1 ms-1 d-lg-none text-body border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+            <i class="bi bi-list fs-4"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title brand-logo fs-6" id="mobileMenuLabel">DevCraft</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="d-flex flex-column gap-2">
+        <a href="#overview" class="nav-link-custom active py-2">Overview</a>
+        <a href="#docs" class="nav-link-custom py-2">Docs</a>
+        <a href="#components" class="nav-link-custom py-2">Components</a>
+        <a href="#ecosystem" class="nav-link-custom py-2">Ecosystem</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container my-5 pt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-7 text-center">
+        <h1 class="fw-bold tracking-tight display-5">Engineered for human workflows.</h1>
+        <p class="text-secondary lead mt-3">
+          Clean visual rhythm, purpose-built typography, and neutral palette foundations instead of visual noise.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+
+
+    const header = document.getElementById('siteHeader');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > 10) {
+            header.classList.add('is-scrolled');
+          } else {
+            header.classList.remove('is-scrolled');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    
+    const themeToggler = document.getElementById('themeToggler');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    themeToggler.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-bs-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      htmlElement.setAttribute('data-bs-theme', newTheme);
+
+      if (newTheme === 'dark') {
+        themeIcon.className = 'bi bi-sun-fill fs-6';
+      } else {
+        themeIcon.className = 'bi bi-moon-fill fs-6';
+      }
+    });
+  </script>
+</body>
+</html>

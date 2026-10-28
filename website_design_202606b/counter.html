@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <center>
+        <h1> Counter </h1>
+        <h1 id="count"> 0 </h1>
+        <button onclick="Incre()"> + </button>
+        <button onclick="Decre()"> - </button>
+        <button onclick="Reset()"> Reset </button>
+    </center>
+
+   <script>
+
+    var count = 0;
+    function Incre() {
+        document.getElementById("count").innerHTML =count;
+        count ++;
+    }
+    function Decre() {
+        document.getElementById("count").innerHTML =count;
+        count--;
+    }
+
+    function Reset() {
+        document.getElementById("count").innerHTML =count;
+        count =0;
+    }
+   </script>
+    
+</body>
+</html>

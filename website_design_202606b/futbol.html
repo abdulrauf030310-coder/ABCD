@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FootLive · Interactive Football Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:#f1f5f9;padding:1.5rem;min-height:100vh;color:#1e2f40}
+.dashboard{max-width:1400px;margin:0 auto}
+.header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-bottom:2rem;gap:1rem}
+.logo-area{display:flex;align-items:center;gap:.75rem}
+.logo-icon{background:#0b2b4a;color:#fff;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:16px;font-size:1.8rem}
+.logo-text h1{font-size:1.6rem;font-weight:700;color:#0b2b4a}
+.logo-text p{font-size:.8rem;color:#4b6a8b;font-weight:500;display:flex;align-items:center;gap:6px}
+.break-badge{background:#e11d48;color:#fff;font-size:.65rem;font-weight:600;padding:.25rem .8rem;border-radius:30px;display:inline-flex;align-items:center;gap:4px}
+.update-time{background:#fff;padding:.6rem 1.2rem;border-radius:40px;font-size:.9rem;font-weight:500;color:#1e3a5f;border:1px solid #e2e8f0;display:flex;align-items:center;gap:8px}
+.live-dot{display:inline-block;width:8px;height:8px;background:#e11d48;border-radius:50%;margin-right:4px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1.5rem;margin-bottom:1.5rem}
+.card{background:#fff;border-radius:24px;padding:1.5rem;box-shadow:0 12px 24px -12px rgba(0,0,0,.1);border:1px solid #e9eef3}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem}
+.card-header h2{font-size:1.2rem;font-weight:600;color:#0b2b4a;display:flex;align-items:center;gap:8px}
+.card-header i{color:#3b7a9e}
+.pill{background:#eef6ff;color:#1a5a8c;font-size:.7rem;font-weight:600;padding:.25rem .8rem;border-radius:30px}
+.league-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.league-table th{text-align:left;color:#5a7188;font-weight:600;font-size:.7rem;text-transform:uppercase;padding-bottom:.6rem;border-bottom:1px solid #e9eef3}
+.league-table td{padding:.6rem 0;border-bottom:1px solid #f0f4f9;font-weight:500}
+.league-table tbody tr{cursor:pointer;transition:background .15s}
+.league-table tbody tr:hover{background:#f0f7ff}
+.league-table tbody tr.active{background:#e0f0ff;box-shadow:inset 3px 0 0 #0b2b4a}
+.team-cell{display:flex;align-items:center;gap:8px}
+.team-badge{width:26px;height:26px;background:#0b2b4a10;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#0b2b4a;border:1px solid #dee8f2;flex-shrink:0}
+.pts{font-weight:700;color:#0b2b4a}
+.player-list{display:flex;flex-direction:column;gap:.7rem}
+.player-item{display:flex;align-items:center;gap:12px;cursor:pointer;padding:.5rem;border-radius:12px;transition:background .15s}
+.player-item:hover{background:#f0f7ff}
+.player-item.active{background:#e0f0ff}
+.player-avatar{width:44px;height:44px;background:#e2eaf3;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#0b2b4a;font-size:.95rem;flex-shrink:0}
+.player-info{flex:1;min-width:0}
+.player-name{font-weight:600;color:#0b2b4a;font-size:.92rem;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.player-stats{display:flex;gap:12px;font-size:.72rem;color:#5f7d9c;margin-top:3px}
+.goals-badge{background:#0b2b4a;color:#fff;font-size:.68rem;font-weight:600;padding:.15rem .6rem;border-radius:30px;white-space:nowrap}
+.match-item{background:#f9fcff;border-radius:18px;padding:1rem;margin-bottom:.9rem;border:1px solid #e2ebf6;cursor:pointer;transition:all .15s}
+.match-item:hover{border-color:#b0d0ee;box-shadow:0 4px 12px rgba(11,43,74,.08);transform:translateY(-1px)}
+.match-item.active{border-color:#0b2b4a;box-shadow:0 0 0 2px #0b2b4a30}
+.match-league{font-size:.65rem;font-weight:600;color:#3b7a9e;margin-bottom:6px}
+.match-teams{display:flex;justify-content:space-between;align-items:center;font-weight:600;color:#0b2b4a}
+.match-team-name{flex:1}
+.match-team-name.away{text-align:right}
+.match-score{background:#0b2b4a;color:#fff;padding:.25rem 1rem;border-radius:40px;font-size:.9rem;font-weight:700;margin:0 10px;white-space:nowrap}
+.match-meta{display:flex;justify-content:space-between;font-size:.7rem;color:#557da0;margin-top:8px}
+.details-panel{background:#0b2b4a;color:#fff;border-radius:24px;padding:1.8rem;margin-top:1.5rem;display:none;animation:slideUp .25s ease}
+.details-panel.visible{display:block}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.details-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.4rem;gap:1rem;flex-wrap:wrap}
+.details-title{font-size:1.3rem;font-weight:700;display:flex;align-items:center;gap:10px}
+.details-sub{font-size:.82rem;color:#9bb8d4;margin-top:4px}
+.details-close{background:#e11d48;color:#fff;border:none;width:38px;height:38px;border-radius:50%;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.details-close:hover{background:#be123c}
+.details-body{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.details-body.single{grid-template-columns:1fr}
+.stat-block{background:#13395c;border-radius:16px;padding:1.1rem}
+.stat-block h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:#7ba7cc;margin-bottom:.9rem;display:flex;align-items:center;gap:6px}
+.comp-row{margin-bottom:1rem}
+.comp-labels{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:5px}
+.comp-labels .home-val{font-weight:700;color:#4ade80}
+.comp-labels .away-val{font-weight:700;color:#38bdf8}
+.comp-labels .stat-name{color:#9bb8d4;font-size:.72rem;text-transform:uppercase;letter-spacing:.3px}
+.comp-bar{display:flex;height:8px;border-radius:10px;overflow:hidden;background:#1e4a70}
+.comp-bar .home-fill{background:#4ade80;height:100%}
+.comp-bar .away-fill{background:#38bdf8;height:100%}
+.lineup-team-name{font-size:.85rem;font-weight:700;color:#7ba7cc;margin-bottom:.6rem;margin-top:.8rem;display:flex;align-items:center;gap:8px}
+.lineup-players-list{display:flex;flex-wrap:wrap;gap:6px}
+.lineup-player-chip{background:#1e4a70;color:#dbeafe;font-size:.72rem;padding:4px 10px;border-radius:20px}
+.formation-badge{background:#3b7a9e;color:#fff;font-size:.62rem;font-weight:700;padding:2px 8px;border-radius:20px}
+.form-list{display:flex;flex-direction:column;gap:.6rem}
+.form-match{display:flex;justify-content:space-between;align-items:center;padding:.55rem .8rem;background:#13395c;border-radius:10px;font-size:.82rem}
+.result-badge{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;flex-shrink:0}
+.result-badge.W{background:#22c55e}
+.result-badge.D{background:#f59e0b}
+.result-badge.L{background:#e11d48}
+.form-match .opponent{flex:1;margin:0 10px;color:#dbeafe}
+.form-match .score-mini{font-weight:700;font-size:.82rem}
+.stat-line{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;padding:.45rem 0;border-bottom:1px solid #1e4a70}
+.stat-line:last-child{border-bottom:none}
+.stat-line .label{color:#b8cce0}
+.stat-line .value{font-weight:700}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.info-chip{background:#13395c;border-radius:12px;padding:.7rem .9rem}
+.info-chip .ic-label{font-size:.65rem;color:#7ba7cc;text-transform:uppercase;letter-spacing:.4px}
+.info-chip .ic-value{font-size:1.05rem;font-weight:700;margin-top:3px}
+.footer-note{text-align:center;margin-top:2rem;font-size:.75rem;color:#7c93aa;border-top:1px solid #d9e2ec;padding-top:1.5rem}
+@media(max-width:800px){
+body{padding:1rem}
+.header{flex-direction:column;align-items:flex-start}
+.grid{grid-template-columns:1fr}
+.details-body{grid-template-columns:1fr}
+.details-panel{padding:1.2rem}
+.league-table{font-size:.8rem}
+}
+</style>
+</head>
+<body>
+<div class="dashboard">
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-futbol"></i></div>
+      <div class="logo-text">
+        <h1>FootLive</h1>
+        <p><span class="live-dot"></span> Pre-International Break · Matchweek 5</p>
+      </div>
+    </div>
+    <div class="update-time">
+      <i class="fas fa-clock"></i>
+      <span id="liveTime">--:--:--</span>
+      <span class="break-badge"><i class="fas fa-pause-circle"></i> Break until Oct 10</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-trophy"></i> Premier League</h2>
+        <span class="pill">After MW5</span>
+      </div>
+      <table class="league-table">
+        <thead><tr><th>#</th><th>Team</th><th>P</th><th>GD</th><th>PTS</th></tr></thead>
+        <tbody id="leagueTableBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-star"></i> Top Scorers</h2>
+        <span class="pill">Golden Boot</span>
+      </div>
+      <div class="player-list" id="playerList"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-futbol"></i> Matchweek 5 Results</h2>
+        <span class="pill">Sept 19-20</span>
+      </div>
+      <div id="matchesContainer"></div>
+    </div>
+  </div>
+
+  <div class="details-panel" id="detailsPanel">
+    <div class="details-header">
+      <div>
+        <div class="details-title" id="detailsTitle"></div>
+        <div class="details-sub" id="detailsSub"></div>
+      </div>
+      <button class="details-close" onclick="closeDetails()"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="detailsBody" class="details-body"></div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-mouse-pointer"></i> Click a team · player · or match to see full stats, form, and lineups
+  </div>
+</div>
+
+<script>
+/* ---------- LIVE CLOCK ---------- */
+function updateClock(){
+  const n=new Date();
+  const p=x=>String(x).padStart(2,'0');
+  document.getElementById('liveTime').textContent=`${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
+}
+updateClock(); setInterval(updateClock,1000);
+
+/* ---------- DATA ---------- */
+const leagueData=[
+  {pos:1,team:'Manchester City',short:'MCI',played:5,gd:12,pts:15},
+  {pos:2,team:'Arsenal',short:'ARS',played:5,gd:8,pts:12},
+  {pos:3,team:'Brighton',short:'BHA',played:5,gd:7,pts:10},
+  {pos:4,team:'Brentford',short:'BRE',played:5,gd:6,pts:9},
+  {pos:5,team:'Leeds United',short:'LEE',played:5,gd:4,pts:9},
+  {pos:6,team:'Liverpool',short:'LIV',played:5,gd:3,pts:9},
+  {pos:7,team:'Everton',short:'EVE',played:5,gd:3,pts:9},
+  {pos:8,team:'Hull City',short:'HUL',played:5,gd:2,pts:8},
+  {pos:9,team:'Newcastle',short:'NEW',played:5,gd:1,pts:8},
+  {pos:10,team:'Chelsea',short:'CHE',played:5,gd:-2,pts:7},
+  {pos:11,team:'Ipswich Town',short:'IPS',played:5,gd:-3,pts:6},
+  {pos:12,team:'Manchester United',short:'MUN',played:5,gd:-2,pts:5},
+  {pos:13,team:'Nottingham Forest',short:'NFO',played:5,gd:-1,pts:5},
+  {pos:14,team:'Sunderland',short:'SUN',played:5,gd:-3,pts:4},
+  {pos:15,team:'Crystal Palace',short:'CRY',played:5,gd:-5,pts:4},
+  {pos:16,team:'Aston Villa',short:'AVL',played:5,gd:-5,pts:4},
+  {pos:17,team:'Bournemouth',short:'BOU',played:5,gd:-2,pts:3},
+  {pos:18,team:'Coventry City',short:'COV',played:5,gd:-9,pts:3},
+  {pos:19,team:'Fulham',short:'FUL',played:5,gd:-3,pts:2},
+  {pos:20,team:'Tottenham',short:'TOT',played:5,gd:-6,pts:2}
+];
+
+const scorersData=[
+  {name:'Erling Haaland',team:'Manchester City',goals:5,assists:0,minutes:450,shots:18,age:26,nationality:'Norway'},
+  {name:'Alexander Isak',team:'Liverpool',goals:4,assists:0,minutes:430,shots:14,age:27,nationality:'Sweden'},
+  {name:'Bruno Fernandes',team:'Manchester United',goals:3,assists:1,minutes:450,shots:12,age:32,nationality:'Portugal'},
+  {name:'Brian Brobbey',team:'Sunderland',goals:3,assists:0,minutes:410,shots:10,age:24,nationality:'Netherlands'},
+  {name:'Bukayo Saka',team:'Arsenal',goals:3,assists:2,minutes:440,shots:11,age:25,nationality:'England'},
+  {name:'João Pedro',team:'Chelsea',goals:3,assists:1,minutes:380,shots:9,age:25,nationality:'Brazil'},
+  {name:'Morgan Rogers',team:'Chelsea',goals:3,assists:0,minutes:400,shots:8,age:24,nationality:'England'},
+  {name:'Pascal Groß',team:'Brighton',goals:3,assists:2,minutes:450,shots:7,age:35,nationality:'Germany'}
+];
+
+const matchesData=[
+  {id:'m1',home:'Manchester City',away:'Sunderland',homeScore:5,awayScore:3,league:'Premier League · MW5',date:'Sept 20, 2026',venue:'Etihad Stadium',
+    stats:{possession:{home:62,away:38},shots:{home:21,away:11},shotsOnTarget:{home:9,away:5},corners:{home:8,away:4},fouls:{home:9,away:13},yellowCards:{home:1,away:3},redCards:{home:0,away:0},offsides:{home:2,away:1},passes:{home:612,away:418},passAccuracy:{home:89,away:82}},
+    lineups:{homeFormation:'4-1-4-1',awayFormation:'4-3-3',
+      homePlayers:['Ederson','Walker','Dias','Ake','Gvardiol','Rodri','Silva','De Bruyne','Foden','Doku','Haaland'],
+      awayPlayers:['Patterson','Hume','Ballard',"O'Nien",'Cirkin','Bellingham','Neil','Roberts','Ba','Isidor','Mundle']}},
+  {id:'m2',home:'Brighton',away:'Arsenal',homeScore:3,awayScore:0,league:'Premier League · MW5',date:'Sept 19, 2026',venue:'Amex Stadium',
+    stats:{possession:{home:45,away:55},shots:{home:14,away:16},shotsOnTarget:{home:7,away:3},corners:{home:5,away:7},fouls:{home:11,away:8},yellowCards:{home:2,away:1},redCards:{home:0,away:0},offsides:{home:1,away:3},passes:{home:398,away:512},passAccuracy:{home:83,away:88}},
+    lineups:{homeFormation:'4-2-3-1',awayFormation:'4-3-3',
+      homePlayers:['Verbruggen','Veltman','Dunk','Van Hecke','Estupinan','Baleba','Groß','Minteh','Enciso','Mitoma','Welbeck'],
+      awayPlayers:['Raya','White','Saliba','Gabriel','Timber','Ødegaard','Rice','Havertz','Saka','Jesus','Martinelli']}},
+  {id:'m3',home:'Brentford',away:'Chelsea',homeScore:3,awayScore:0,league:'Premier League · MW5',date:'Sept 19, 2026',venue:'Gtech Community Stadium',
+    stats:{possession:{home:48,away:52},shots:{home:17,away:12},shotsOnTarget:{home:8,away:3},corners:{home:6,away:5},fouls:{home:10,away:12},yellowCards:{home:1,away:2},redCards:{home:0,away:1},offsides:{home:2,away:2},passes:{home:432,away:478},passAccuracy:{home:84,away:86}},
+    lineups:{homeFormation:'4-3-3',awayFormation:'4-2-3-1',
+      homePlayers:['Flekken','Ajer','Collins','Pinnock','Henry','Nørgaard','Jensen','Damsgaard','Mbeumo','Thiago','Schade'],
+      awayPlayers:['Sánchez','James','Fofana','Colwill','Cucurella','Caicedo','Fernández','Madueke','Palmer','Neto','Jackson']}},
+  {id:'m4',home:'Tottenham',away:'Aston Villa',homeScore:1,awayScore:2,league:'Premier League · MW5',date:'Sept 19, 2026',venue:'Tottenham Hotspur Stadium',
+    stats:{possession:{home:58,away:42},shots:{home:15,away:10},shotsOnTarget:{home:4,away:6},corners:{home:7,away:3},fouls:{home:10,away:14},yellowCards:{home:2,away:3},redCards:{home:0,away:0},offsides:{home:3,away:1},passes:{home:524,away:386},passAccuracy:{home:87,away:81}},
+    lineups:{homeFormation:'4-3-3',awayFormation:'4-4-2',
+      homePlayers:['Vicario','Porro','Romero','Van de Ven','Udogie','Bissouma','Bentancur','Maddison','Johnson','Solanke','Son'],
+      awayPlayers:['Martínez','Cash','Konsa','Torres','Digne','Bailey','McGinn','Tielemans','Ramsey','Watkins','Durán']}},
+  {id:'m5',home:'Fulham',away:'Manchester United',homeScore:1,awayScore:1,league:'Premier League · MW5',date:'Sept 20, 2026',venue:'Craven Cottage',
+    stats:{possession:{home:44,away:56},shots:{home:11,away:18},shotsOnTarget:{home:4,away:6},corners:{home:4,away:8},fouls:{home:13,away:9},yellowCards:{home:3,away:1},redCards:{home:0,away:0},offsides:{home:1,away:2},passes:{home:378,away:495},passAccuracy:{home:80,away:85}},
+    lineups:{homeFormation:'4-2-3-1',awayFormation:'4-2-3-1',
+      homePlayers:['Leno','Tete','Diop','Bassey','Robinson','Palhinha','Pereira','Wilson','Iwobi','Willian','Muniz'],
+      awayPlayers:['Onana','Dalot','Varane','Martínez','Shaw','Casemiro','Mainoo','Antony','Fernandes','Garnacho','Højlund']}}
+];
+
+const teamDetails={
+  'Manchester City':{manager:'Pep Guardiola',stadium:'Etihad Stadium',
+    form:[{opponent:'Sunderland (H)',score:'5-3',result:'W'},{opponent:'Fulham (A)',score:'3-0',result:'W'},{opponent:'West Ham (H)',score:'4-1',result:'W'},{opponent:'Brentford (A)',score:'2-1',result:'W'},{opponent:'Ipswich (H)',score:'3-1',result:'W'}],
+    squad:['Ederson','Walker','Dias','Ake','Gvardiol','Rodri','Silva','De Bruyne','Foden','Doku','Haaland'],topScorer:'Erling Haaland (5)'},
+  'Arsenal':{manager:'Mikel Arteta',stadium:'Emirates Stadium',
+    form:[{opponent:'Brighton (A)',score:'0-3',result:'L'},{opponent:'Nottm Forest (H)',score:'3-0',result:'W'},{opponent:'Tottenham (A)',score:'1-0',result:'W'},{opponent:'Wolves (H)',score:'2-0',result:'W'},{opponent:'Aston Villa (A)',score:'2-0',result:'W'}],
+    squad:['Raya','White','Saliba','Gabriel','Timber','Ødegaard','Rice','Havertz','Saka','Jesus','Martinelli'],topScorer:'Bukayo Saka (3)'},
+  'Brighton':{manager:'Fabian Hürzeler',stadium:'Amex Stadium',
+    form:[{opponent:'Arsenal (H)',score:'3-0',result:'W'},{opponent:'Ipswich (A)',score:'2-2',result:'D'},{opponent:'Man United (H)',score:'2-1',result:'W'},{opponent:'Everton (A)',score:'0-1',result:'L'},{opponent:'Crystal Palace (H)',score:'3-1',result:'W'}],
+    squad:['Verbruggen','Veltman','Dunk','Van Hecke','Estupinan','Baleba','Groß','Minteh','Enciso','Mitoma','Welbeck'],topScorer:'Pascal Groß (3)'},
+  'Brentford':{manager:'Thomas Frank',stadium:'Gtech Community Stadium',
+    form:[{opponent:'Chelsea (H)',score:'3-0',result:'W'},{opponent:'Man City (A)',score:'1-2',result:'L'},{opponent:'West Ham (H)',score:'2-0',result:'W'},{opponent:'Liverpool (A)',score:'1-1',result:'D'},{opponent:'Sunderland (H)',score:'2-1',result:'W'}],
+    squad:['Flekken','Ajer','Collins','Pinnock','Henry','Nørgaard','Jensen','Damsgaard','Mbeumo','Thiago','Schade'],topScorer:'Bryan Mbeumo (2)'},
+  'Leeds United':{manager:'Daniel Farke',stadium:'Elland Road',
+    form:[{opponent:'Everton (H)',score:'1-1',result:'D'},{opponent:'Wolves (A)',score:'2-1',result:'W'},{opponent:'Newcastle (H)',score:'2-0',result:'W'},{opponent:'Brighton (A)',score:'0-2',result:'L'},{opponent:'Ipswich (H)',score:'3-0',result:'W'}],
+    squad:['Meslier','Bogle','Rodon','Struijk','Firpo','Ampadu','Gruev','Gnonto','Aaronson','James','Piroe'],topScorer:'Joël Piroe (2)'},
+  'Liverpool':{manager:'Arne Slot',stadium:'Anfield',
+    form:[{opponent:'Man United (H)',score:'2-1',result:'W'},{opponent:'Brentford (A)',score:'1-1',result:'D'},{opponent:'Crystal Palace (H)',score:'3-0',result:'W'},{opponent:'Fulham (A)',score:'2-1',result:'W'},{opponent:'Chelsea (H)',score:'0-1',result:'L'}],
+    squad:['Alisson','Alexander-Arnold','Konaté','Van Dijk','Robertson','Mac Allister','Szoboszlai','Salah','Gakpo','Díaz','Isak'],topScorer:'Alexander Isak (4)'},
+  'Everton':{manager:'Sean Dyche',stadium:'Goodison Park',
+    form:[{opponent:'Leeds (A)',score:'1-1',result:'D'},{opponent:'Bournemouth (H)',score:'2-2',result:'D'},{opponent:'Tottenham (A)',score:'0-1',result:'L'},{opponent:'Brighton (H)',score:'1-0',result:'W'},{opponent:'Wolves (A)',score:'2-1',result:'W'}],
+    squad:['Pickford','Coleman','Tarkowski','Branthwaite','Mykolenko','Gueye','Doucouré','Harrison','McNeil','Beto','DCL'],topScorer:'Dominic Calvert-Lewin (2)'},
+  'Hull City':{manager:'Tim Walter',stadium:'MKM Stadium',
+    form:[{opponent:'Coventry (A)',score:'1-1',result:'D'},{opponent:'Sunderland (H)',score:'2-1',result:'W'},{opponent:'Bristol City (A)',score:'1-1',result:'D'},{opponent:'Norwich (H)',score:'2-0',result:'W'},{opponent:'Derby (A)',score:'0-1',result:'L'}],
+    squad:['Pandur','Coyle','Jones','McLoughlin','Drameh','Slater','Seri','Omur','Belloumi','Mehlem','Pedro'],topScorer:'Óscar Estupiñán (2)'},
+  'Newcastle':{manager:'Eddie Howe',stadium:"St James' Park",
+    form:[{opponent:'Aston Villa (A)',score:'1-2',result:'L'},{opponent:'Leeds (A)',score:'0-2',result:'L'},{opponent:'Tottenham (H)',score:'3-1',result:'W'},{opponent:'Man City (A)',score:'1-1',result:'D'},{opponent:'Wolves (H)',score:'2-0',result:'W'}],
+    squad:['Pope','Trippier','Schär','Botman','Burn','Guimarães','Tonali','Joelinton','Almirón','Isak','Gordon'],topScorer:'Alexander Isak (3)'},
+  'Chelsea':{manager:'Enzo Maresca',stadium:'Stamford Bridge',
+    form:[{opponent:'Brentford (A)',score:'0-3',result:'L'},{opponent:'Palace (H)',score:'1-1',result:'D'},{opponent:'Bournemouth (A)',score:'2-0',result:'W'},{opponent:'Man City (H)',score:'0-2',result:'L'},{opponent:'Liverpool (A)',score:'1-0',result:'W'}],
+    squad:['Sánchez','James','Fofana','Colwill','Cucurella','Caicedo','Fernández','Madueke','Palmer','Neto','Jackson'],topScorer:'Cole Palmer / João Pedro (3)'},
+  'Ipswich Town':{manager:'Kieran McKenna',stadium:'Portman Road',
+    form:[{opponent:'Fulham (A)',score:'0-1',result:'L'},{opponent:'Brighton (H)',score:'2-2',result:'D'},{opponent:'Man City (A)',score:'1-3',result:'L'},{opponent:'Leeds (A)',score:'1-1',result:'D'},{opponent:'Everton (H)',score:'2-1',result:'W'}],
+    squad:['Muric','Tuanzebe','Greaves','O\'Shea','Davis','Morsy','Cajuste','Burns','Hutchinson','Szmodics','Delap'],topScorer:'Liam Delap (2)'},
+  'Manchester United':{manager:'Erik ten Hag',stadium:'Old Trafford',
+    form:[{opponent:'Fulham (A)',score:'1-1',result:'D'},{opponent:'Liverpool (A)',score:'1-2',result:'L'},{opponent:'Southampton (H)',score:'3-0',result:'W'},{opponent:'Brighton (A)',score:'1-2',result:'L'},{opponent:'Crystal Palace (H)',score:'1-1',result:'D'}],
+    squad:['Onana','Dalot','Varane','Martínez','Shaw','Casemiro','Mainoo','Antony','Fernandes','Garnacho','Højlund'],topScorer:'Bruno Fernandes (3)'},
+  'Nottingham Forest':{manager:'Nuno Espírito Santo',stadium:'The City Ground',
+    form:[{opponent:'Wolves (H)',score:'2-0',result:'W'},{opponent:'Arsenal (A)',score:'0-3',result:'L'},{opponent:'Brighton (A)',score:'1-2',result:'L'},{opponent:'Palace (H)',score:'1-0',result:'W'},{opponent:'Fulham (A)',score:'1-1',result:'D'}],
+    squad:['Sels','Aina','Milenković','Murillo','Williams','Yates','Dominguez','Elanga','Gibbs-White','Hudson-Odoi','Wood'],topScorer:'Chris Wood (2)'},
+  'Sunderland':{manager:'Régis Le Bris',stadium:'Stadium of Light',
+    form:[{opponent:'Man City (A)',score:'3-5',result:'L'},{opponent:'Hull (A)',score:'1-2',result:'L'},{opponent:'Sheffield Utd (H)',score:'2-1',result:'W'},{opponent:'Burnley (A)',score:'1-1',result:'D'},{opponent:'Stoke (H)',score:'1-0',result:'W'}],
+    squad:['Patterson','Hume','Ballard',"O'Nien",'Cirkin','Bellingham','Neil','Roberts','Ba','Isidor','Mundle'],topScorer:'Brian Brobbey (3)'},
+  'Crystal Palace':{manager:'Oliver Glasner',stadium:'Selhurst Park',
+    form:[{opponent:'Chelsea (A)',score:'1-1',result:'D'},{opponent:'Tottenham (H)',score:'0-1',result:'L'},{opponent:'Man United (A)',score:'1-1',result:'D'},{opponent:'Leicester (H)',score:'2-0',result:'W'},{opponent:'Brighton (A)',score:'1-3',result:'L'}],
+    squad:['Henderson','Ward','Andersen','Guehi','Mitchell','Wharton','Lerma','Eze','Olise','Kamada','Mateta'],topScorer:'Jean-Philippe Mateta (2)'},
+  'Aston Villa':{manager:'Unai Emery',stadium:'Villa Park',
+    form:[{opponent:'Tottenham (A)',score:'2-1',result:'W'},{opponent:'Arsenal (H)',score:'0-2',result:'L'},{opponent:'Leicester (A)',score:'2-1',result:'W'},{opponent:'Everton (H)',score:'0-1',result:'L'},{opponent:'West Ham (A)',score:'1-1',result:'D'}],
+    squad:['Martínez','Cash','Konsa','Torres','Digne','Bailey','McGinn','Tielemans','Ramsey','Watkins','Durán'],topScorer:'Ollie Watkins (2)'},
+  'Bournemouth':{manager:'Andoni Iraola',stadium:'Vitality Stadium',
+    form:[{opponent:'Everton (A)',score:'2-2',result:'D'},{opponent:'Newcastle (H)',score:'1-2',result:'L'},{opponent:'Chelsea (H)',score:'0-2',result:'L'},{opponent:'Wolves (A)',score:'0-1',result:'L'},{opponent:'Forest (H)',score:'1-1',result:'D'}],
+    squad:['Neto','Smith','Zabarnyi','Senesi','Kerkez','Cook','Christie','Semenyo','Tavernier','Kluivert','Evanilson'],topScorer:'Antoine Semenyo (2)'},
+  'Coventry City':{manager:'Mark Robins',stadium:'Coventry Building Society Arena',
+    form:[{opponent:'Hull (H)',score:'1-1',result:'D'},{opponent:'Derby (A)',score:'0-2',result:'L'},{opponent:'Stoke (H)',score:'0-1',result:'L'},{opponent:'Millwall (A)',score:'1-0',result:'W'},{opponent:'Cardiff (H)',score:'1-2',result:'L'}],
+    squad:['Dovin','Van Ewijk','Thomas','Binks','Bidwell','Eccles','Sheaf','Sakamoto','Rudoni','Wright','Simms'],topScorer:'Ellis Simms (2)'},
+  'Fulham':{manager:'Marco Silva',stadium:'Craven Cottage',
+    form:[{opponent:'Man United (H)',score:'1-1',result:'D'},{opponent:'Ipswich (H)',score:'1-0',result:'W'},{opponent:'Man City (H)',score:'0-3',result:'L'},{opponent:'Liverpool (H)',score:'1-2',result:'L'},{opponent:'Forest (H)',score:'1-1',result:'D'}],
+    squad: [  'Leno ' , ' Tete ' , ' Diop ' , ' Bassey ' , ' Robinson ' , ' Palhinha '  , ' Pereira ' , ' Wilson ' , ' Iwobi ' , ' Willian ' , ' Muniz ' ] , topScorer: ' Rodrigo Muniz (2) ' } ,
+  ' Tottenham ': { manager: ' Ange Postecoglou ' , stadium: ' Tottenham Hotspur Stadium ',
+    form : [ { opponent : ' Aston Villa (H) ' , score: ' 1-2 ' , result: ' L ' } , { opponent: ' Arsenal (H) ' , score: ' 0 - 1 ' , result: ' L ' } , { opponent: ' Newcastle (A) ' , score: ' 1-3 ' , result: ' L ' } , { opponent: ' Everton (H) ' , score: ' 1-0 ' ,result: ' W ' } , { opponent: ' Palace (A) ' , score: ' 1-0 ' , result: ' W ' } ] ,
+    squad: [ ' Vicario ' , ' Porro ' , ' Romero ' , ' Van de Ven ' , ' Udogie ' , ' Bissouma ' , ' Bentancur ' , ' Maddison ' , ' Johnson ' ,' Solanke ' , ' Son ' ] , topScorer: ' Son Heung-min (2) ' }
+} ;
+
+
+function renderLeague ( ) {
+  const tb = document.getElementById ( ' leagueTableBody ' ) ;
+  tb.innerHTML = leagueData.map( t=> `
+    <tr data - team = " ${ t.team } " onclick = " selectTeam ( ' ${ t.team.replace ( / ' /g, " \\ ' " ) }' ) " >
+      <td> ${ t.pos } </td>
+      <td> <div class = " team - cell " > <span class = " team - badge " > ${ t.short } </span> ${ t.team } </div> </td>
+      <td> ${ t.played } </td>
+      <td> ${ t.gd>0? ' + ' : ' ' } ${ t.gd } </td>
+      <td class = " pts " > ${ t.pts } </td>
+    </tr> ` ) .join ( ' ' ) ;
+}
+
+function renderPlayers ( ) {
+  const c = document.getElementById ( ' playerList ' ) ;
+  c.innerHTML = scorersData.map ( p=> {
+    const initials = p.name.split ( ' ' ) .map ( n=>n [ 0 ] ) .join ( ' ' ) .slice ( 0 , 2 ) ;
+    return ` <div class = " player - item " onclick = " selectPlayer ( ' ${ p.name.replace ( / ' /g, " \\ ' " ) } ' ) " >
+      <div class = " player - avatar " > ${ initials } </div>
+      <div class = " player - info " >
+        <div class = " player - name " > ${ p.name } <span class = " goals - badge " > ${ p.goals } goals </span> </div>
+        <div class = " player - stats " > <span> <i class = " fas fa - tshirt " > </i> ${ p.team } </span> </div>
+      </div>
+    </div> ` ;
+  } ).join ( ' ' ) ;
+}
+
+function renderMatches ( ) {
+  const c = document.getElementById ( ' matchesContainer ' ) ;
+  c.innerHTML = matchesData.map ( m=> `
+    <div class = " match - item " data - match = " ${ m.id } " onclick = " selectMatch ( ' ${ m.id } ' ) " >
+      <div class = " match - league " > ${ m.league } · ${ m.date } </div>
+      <div class = " match - teams " >
+        <span class = " match - team - name " > ${ m.home } </span>
+        <span class="match-score">${m.homeScore} - ${m.awayScore}</span>
+        <span class = " match - team - name away " > ${ m.away } </span>
+      </div>
+      <div class = " match - meta " >
+        <span> <i class = " fas fa - check - circle " style = " color: #22c55e " > </i> Full Time </span>
+        <span> <i class = " fas fa - users " > </i> ${ m.venue } </span>
+      </div>
+    </div> ` ) .join ( ' ' ) ;
+}
+
+function clearActive ( ) {
+  document.querySelectorAll ( ' .league - table tbody tr ' ) .forEach (e=>e.classList.remove ( ' active ' ) ) ;
+  document.querySelectorAll ( ' .player - item ' ) .forEach ( e=>e.classList.remove ( ' active ' ) ) ;
+  document.querySelectorAll ( ' .match - item ' ) .forEach ( e=>e.classList.remove ( ' active ' ) ) ;
+}
+
+function showPanel (title , sub , bodyHTML , single ) {
+  document.getElementById ( ' detailsTitle ' ) .innerHTML = title ;
+  document.getElementById ( ' detailsSub ' ) .innerHTML = sub ;
+  const body = document.getElementById ( ' detailsBody ' ) ;
+  body.className = ' details - body '+ ( single? ' single ' : ' ' ) ; 
+  body.innerHTML = bodyHTML ;
+  document.getElementById ( ' detailsPanel ' ).classList.add ( ' visible ' ) ; 
+  document.getElementById ( ' detailsPanel ' ) .scrollIntoView ( { behavior: ' smooth ' , block: ' nearest ' } ) ;
+}
+
+function closeDetails( ) {
+  document.getElementById ( ' detailsPanel ' ) .classList.remove ( ' visible ' ) ;
+  clearActive ( ) ;
+}
+
+function selectTeam ( name ) {
+  clearActive ( ) ;
+  const row = document.querySelector ( ` .league - table tbody tr [ data - team = " ${ name } " ] ` ) ;
+  if( row ) row.classList.add ( ' active ' ) ;
+
+  const  t=teamDetails [ name ] ;
+  if( !t ) {
+    showPanel ( ` <i class = " fas fa - shield - alt " > </i> ${ name } ` ,
+      ' Team information ' ,
+      ` <div class = " stat - block " > <h4> No detailed data </h4> < p style = " color: #b8cce0 " > Additional info coming soon. </p> </div> ` , true ) ;
+    return ;
+  }
+
+  const formHTML = t.form.map (f=>`
+    <div class = " form - match " >
+      <span class = " result - badge ${ f.result } " > ${ f.result } </span>
+      <span class = " opponent " > ${ f.opponent } </span>
+      <span class = " score - mini " > ${ f.score } </span>
+    </div> ` ) .join ( ' ' ) ;
+
+  const squadHTML = t.squad.map ( p=> ` <span class = " lineup - player - chip " > ${ p } </span> ` ) .join( ' ' ) ;
+
+  const body = `
+    <div class = " stat - block " >
+      <h4> <i class = " fas fa - chart - line " > </i> Recent Form ( Last 5 ) </h4>
+      <div class = " form - list " > ${ formHTML } </div>
+    </div>
+    <div>
+      <div class = " stat - block " style = " margin - bottom: 1rem ; " >
+        <h4><i class = " fas fa - info - circle " > </i> Club Info </h4>
+        <div class = " info - grid " >
+          <div class = " info - chip " > <div class = " ic - label " > Manager </div> <div class = " ic - value " style = " font - size: .85rem " >${ t.manager } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > Stadium </div> <div class = " ic - value " style = " font - size: .85rem " > ${ t.stadium }</div></div>
+          <div class = " info - chip " > <div class = " ic - label " > Top Scorer </div> <div class = " ic - value " style= " font-size:.85rem " > ${ t.topScorer } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > League Pos </div> <div class = " ic - value " >${  leagueData.find ( l=>l.team===name )?.pos|| ' - ' } </div> </div>
+        </div>
+      </div>
+      <div class = " stat - block " >
+        <h4><i class="fas fa-users"></i> Key Squad</h4>
+        <div class = " lineup - players - list " > ${ squadHTML } </div>
+      </div>
+    </div> ` ;
+
+  showPanel ( ` <i class = " fas fa - shield - alt " > </i> ${ name } ` , ' Recent form · squad · club info ' , body , false ) ;
+}
+
+function selectPlayer ( name ) {
+  clearActive ( ) ;
+  document.querySelectorAll ( ' .player - item ' ) .forEach ( el=>{
+    if ( el.querySelector ( '.player - name ' ).textContent.trim ( ).startsWith ( name ) ) el.classList.add ( ' active ' ) ;
+  } ) ;
+
+  const p = scorersData.find ( x=>x.name===name ) ;
+  if ( !p ) return ;
+
+  const body =  `
+    <div class = " stat - block " >
+      <h4> <i class = " fas fa - futbol " > </i> Season Stats </h4>
+      <div class = " stat - line " > <span class = " label " > Goals </span> <span class = " value high " > ${ p.goals } </span> </div>
+      <div class = " stat - line " > < span class = " label " > Assists </span> <span class = " value " > ${ p.assists } </span> </div>
+      <div class = " stat - line " > <span class = " label " > Minutes Played </span> <span class = " value " > ${ p.minutes } </span> </div>
+      <div class = " stat - line " > <span class = " label " > Shots </span> <span class = " value " > ${ p.shots } </span> </div>
+      <div class="stat-line"> <span class = " label " > Shot Accuracy </span> <span class = " value " > ${ Math.round ( p.goals/p.shots*100 ) } % </span> </div>
+    </div>
+    <div>
+      <div class = " stat - block " style = " margin - bottom: 1rem ; " >
+        <h4> <i class = " fas fa - id - card " > </i> Player Info </h4>
+        <div class = " info - grid " >
+          <div class = " info - chip " > <div class = " ic - label " > Club </div> <div class = " ic - value " style = " font - size: .85rem " >${ p.team } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > Age </div> <div class = " ic - value " > ${ p.age } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > Nationality </div> <div class = " ic - value " style = " font - size: .85rem " > ${ p.nationality } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > League Rank </div> <div class = " ic - value " > #${ scorersData.indexOf ( p )+1 } </div> </div>
+        </div>
+      </div>
+      <div class = " stat - block " >
+        <h4> <i class = " fas fa - chart - bar " > </i> Goal Contribution </h4>
+        <div class = " comp - row " >
+          <div class = " comp - labels " >< span class = " home - val " > ${ p.goals }  goals </span><span class = " stat - name " > Goals vs Assists </span> <span class = " away - val " > ${ p.assists } assists </span> </div>
+          <div class = " comp - bar " >
+            <div class = " home - fill " style = " width: ${ p.goals/ ( p.goals+p.assists||1 ) *100} % " > </div>
+            <div class = " away - fill " style = " width: ${ p.assists/ ( p.goals+p.assists||1 ) *100 } % " ></div>
+          </div>
+        </div>
+      </div>
+    </div> ` ;
+
+  showPanel ( ` <i class = " fas fa - user " > </i> ${ p.name } ` , ' Premier League · 2026/27 season ' ,body , false ) ;
+}
+
+function selectMatch ( id ) {
+  clearActive ( ) ;
+  document.querySelector ( ` .match - item [ data - match = " ${ id } " ] ` ).classList.add ( ' active ' ) ;
+  const m = matchesData.find ( x=>x.id===id ) ;
+  if( !m ) return ;
+
+  const s = m.stats ;
+  const statRow = ( label , key , suffix = ' ' ) => {
+    const h = s [ key ].home, a = s [ key ].away;
+    const total = h + a||1 ;
+    return ` <div class = " comp - row " >
+      <div class = " comp - labels " >
+        <span class = " home - val " > ${ h } ${ suffix } </span>
+        <span class = " stat - name " > ${ label } </span>
+        <span class = " away - val " > ${ a }${ suffix } </span>
+      </div>
+      <div class = " comp - bar " >
+        <div class = " home - fill " style = " width:${ h/total*100 } % " > </div>
+        <div class = " away - fill " style = " width:${ a/total*100 } % " > </div>
+      </div>
+    </div> ` ;
+  };
+
+  const homeChips = m.lineups.homePlayers.map ( p=> ` <span class = " lineup - player - chip " > ${ p } </span> ` ).join ( ' ' ) ;
+  const awayChips = m.lineups.awayPlayers.map ( p=>` <span class = " lineup - player - chip " > ${ p } </span> ` ).join ( ' ' ) ;
+
+  const body = `
+    <div class = " stat - block " >
+      <h4> <i class = " fas fa - chart - bar " > </i> Match Statistics </h4>
+      ${statRow ( ' Possession ' , ' possession ' , ' % ' ) }
+      ${statRow ( ' Shots ' , ' shots ' ) }
+      ${statRow ( ' Shots on Target ' , ' shotsOnTarget ' ) }
+      ${statRow ( ' Corners ' , ' corners ' ) }
+      ${statRow ( ' Fouls ' , ' fouls ' ) }
+      ${ statRow ( ' Yellow Cards ' , ' yellowCards ' ) }
+      ${statRow ( ' Offsides ' , ' offsides ' ) }
+    </div>
+    <div>
+      <div class = " stat - block " style = " margin - bottom: 1rem ; " >
+        <h4> <i class = " fas fa - list - ol " > </i> Key Numbers </h4>
+        <div class = " info - grid " >
+          <div class = " info - chip " > < div class = " ic - label " > Passes (H) </div> <div class = " ic - value " > ${ s.passes.home } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > Passes (A) </div> <div class="ic-value">${s.passes.away } </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > Pass Acc. (H) </div> <div class="ic-value">${s.passAccuracy.home }% </div> </div>
+          <div class = " info - chip " > <div class = " ic - label " > Pass Acc. (A) </div> <div class = " ic - value " > ${ s.passAccuracy.away } % </div> </div>
+          <div class = " info - chip " > <div class = " ic-label " > Red Cards </div> <div class = " ic - value " > ${ s.redCards.home } - ${ s.redCards.away } </div> </div>
+          <div class = " info - chip " > < div class = " ic - label " > Venue </div> <div class = " ic - value " style = " font - size:.75rem " >${ m.venue } </div> </div>
+        </div>
+      </div>
+      <div class = " stat - block " >
+        <h4> <i class = " fas fa - users " > </i> Starting Lineups </h4>
+        <div class = " lineup - team - name " > ${ m.home } <span class = " formation-badge " >${ m.lineups.homeFormation } </span> </div>
+        <div class = " lineup - players - list " > ${ homeChips } </div>
+        <div class = " lineup - team - name " > ${ m.away } < span class = " formation - badge " > ${ m.lineups.awayFormation } </span> </div>
+        <div class = " lineup - players - list " > ${ awayChips } </div>
+      </div>
+    </div>`;
+
+  showPanel ( ` <i class = " fas fa - futbol " > </i> ${ m.home } ${ m.homeScore } - ${ m.awayScore } ${ m.away }`,
+    `${ m.league } · ${ m.date } `, body,false ) ;
+}
+
+renderLeague ( ) ;
+renderPlayers ( ) ;
+renderMatches ( ) ;
+</script>
+</body>
+</html>

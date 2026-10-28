@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07070a">
+<title> Apex Motors </title>
+
+<meta name="description" content="Apex Motors - premium new and certified pre-owned cars, flexible finance and private test drives.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+  --bg:#07070a; --bg2:#0c0c11; --panel:#121218; --line:rgba(255,255,255,.09);
+  --text:#ebe9e4; --muted:#9a99a3;
+  --gold:#c8a45b; --gold2:#f0d9a2; --gold3:#8a6a2c;
+  --grad-gold:linear-gradient(135deg,#8a6a2c 0%,#e8cb8a 48%,#b58a3a 100%);
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+[data-bs-theme=dark]{--bs-body-bg:#07070a;--bs-body-color:#ebe9e4;--bs-border-color:rgba(255,255,255,.09)}
+
+html{scroll-padding-top:80px}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.055;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+h1,h2,h3,h4,h5{font-family:var(--serif);font-weight:500}
+a{text-decoration:none;color:inherit}
+section{position:relative}
+.py-sec{padding:110px 0}
+.alt{background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.text-gold{color:var(--gold)!important}
+::selection{background:var(--gold);color:#111}
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:#0a0a0d}::-webkit-scrollbar-thumb{background:#2a2a33;border-radius:10px}
+@media(max-width:767px){.py-sec{padding:76px 0}}
+
+#loader{position:fixed;inset:0;z-index:3000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .7s ease,visibility .7s}
+#loader.done{opacity:0;visibility:hidden}
+.loader-mark{font-family:var(--serif);font-size:2.6rem;letter-spacing:.4em;color:var(--gold2);display:flex;align-items:center;gap:12px;padding-left:.4em}
+.loader-bar{width:180px;height:2px;background:rgba(255,255,255,.1);overflow:hidden;border-radius:2px}
+.loader-bar i{display:block;height:100%;width:40%;background:var(--grad-gold);animation:load 1.1s ease-in-out infinite}
+@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad-gold);z-index:1100}
+
+.btn-gold{background:var(--grad-gold);color:#14100a;border:0;border-radius:999px;padding:.85rem 1.9rem;font-weight:600;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.btn-gold::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .7s var(--ease)}
+.btn-gold:hover{color:#14100a;transform:translateY(-3px);box-shadow:0 16px 40px rgba(200,164,91,.32)}
+.btn-gold:hover::after{left:130%}
+.btn-gold.btn-sm{padding:.6rem 1.3rem;font-size:.7rem}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.85rem 1.9rem;font-weight:500;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;transition:.4s var(--ease)}
+.btn-ghost:hover,.btn-ghost.active,.btn-ghost.on{color:#14100a;background:var(--gold2);border-color:var(--gold2)}
+.btn-ghost.btn-sm{padding:.55rem 1.2rem;font-size:.7rem}
+.link-btn{background:none;border:0;color:var(--gold);text-decoration:underline;text-underline-offset:4px;padding:0;font-size:inherit}
+
+#nav{padding:22px 0;transition:padding .4s,background .4s,box-shadow .4s}
+#nav.scrolled{padding:12px 0;background:rgba(7,7,10,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--line)}
+.navbar-brand{font-family:var(--serif);font-size:1.65rem;letter-spacing:.3em;color:#fff!important;display:flex;align-items:center;gap:10px;font-weight:600;margin:0}
+.navbar-brand i{color:var(--gold);font-size:1.3rem}
+.navbar-brand span{color:var(--gold)}
+.nav-link{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.78)!important;padding:.5rem 1rem!important;position:relative;transition:color .3s}
+.nav-link::after{content:'';position:absolute;left:1rem;right:1rem;bottom:2px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.nav-link:hover,.nav-link.active{color:#fff!important}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
+.navbar-toggler{border:0;color:#fff;font-size:2rem;padding:0;line-height:1}
+.navbar-toggler:focus{box-shadow:none}
+.nav-fav{background:none;border:1px solid var(--line);color:#fff;width:42px;height:42px;border-radius:50%;position:relative;transition:.3s;display:grid;place-items:center}
+.nav-fav:hover{border-color:var(--gold);color:var(--gold)}
+.nav-fav b{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:9px;background:var(--gold);color:#111;font-size:.65rem;display:grid;place-items:center;font-weight:600;padding:0 4px}
+@media(max-width:991.98px){#nav{background:rgba(7,7,10,.92)}.navbar-collapse{padding:18px 0 10px}}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(ellipse at 70% 20%,#3b2a0e 0%,#0a0a0d 62%)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease;transform:scale(1.04)}
+.hero-video.on{opacity:1}
+.hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,10,.9) 0%,rgba(7,7,10,.5) 55%,rgba(7,7,10,.15) 100%),linear-gradient(180deg,rgba(7,7,10,.55) 0%,transparent 30%,rgba(7,7,10,.96) 100%)}
+.hero-inner{position:relative;z-index:3;padding-top:110px;padding-bottom:150px}
+.hero-inner>*{animation:rise 1.1s var(--ease) backwards}
+.hero-inner>*:nth-child(2){animation-delay:.15s}.hero-inner>*:nth-child(3){animation-delay:.3s}.hero-inner>*:nth-child(4){animation-delay:.45s}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:.7rem;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);font-weight:500;font-family:var(--sans)}
+.eyebrow::before{content:'';width:34px;height:1px;background:var(--gold)}
+.hero h1{font-size:clamp(3.2rem,9vw,8rem);line-height:.94;letter-spacing:-.015em;margin:20px 0 26px}
+.typed{font-style:italic;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;border-right:3px solid var(--gold);padding-right:8px;animation:caret .8s steps(1) infinite}
+@keyframes caret{50%{border-color:transparent}}
+.hero .lead{max-width:540px;color:rgba(255,255,255,.78);font-size:1.08rem;font-weight:300}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.scroll-cue{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);z-index:3;width:26px;height:44px;border:1.5px solid rgba(255,255,255,.5);border-radius:14px}
+.scroll-cue span{position:absolute;left:50%;top:8px;width:3px;height:8px;margin-left:-1.5px;background:#fff;border-radius:2px;animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(16px)}}
+.hero-toggle{position:absolute;right:28px;bottom:96px;z-index:4;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(7,7,10,.45);backdrop-filter:blur(8px);color:#fff;display:grid;place-items:center;transition:.3s}
+.hero-toggle:hover{background:var(--gold);color:#111;border-color:var(--gold)}
+@media(max-width:767px){.scroll-cue{display:none}.hero-toggle{right:16px;bottom:90px}}
+
+.finder{margin-top:-64px;position:relative;z-index:6}
+.finder-box{background:rgba(18,18,24,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;padding:28px 30px;box-shadow:0 40px 90px rgba(0,0,0,.6)}
+.finder label,.lbl{display:block;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.finder label b{color:var(--gold2);font-weight:500}
+.form-select,.form-control{background-color:rgba(255,255,255,.04);border:1px solid var(--line);color:#fff;border-radius:12px;padding:.8rem 1rem;font-size:.92rem}
+.form-select:focus,.form-control:focus{background-color:rgba(255,255,255,.06);color:#fff;border-color:var(--gold);box-shadow:0 0 0 .2rem rgba(200,164,91,.16)}
+.form-control::placeholder{color:#6d6c77}
+.form-select option{background:#14141b;color:#fff}
+.form-range::-webkit-slider-runnable-track{height:4px;background:rgba(255,255,255,.14);border-radius:4px}
+.form-range::-webkit-slider-thumb{background:var(--gold);border:0;margin-top:-6px;box-shadow:0 0 0 4px rgba(200,164,91,.2)}
+.form-range::-moz-range-track{height:4px;background:rgba(255,255,255,.14);border-radius:4px}
+.form-range::-moz-range-thumb{background:var(--gold);border:0}
+.form-range:focus{box-shadow:none}
+.form-check-input:checked{background-color:var(--gold);border-color:var(--gold)}
+.form-check-input:focus{box-shadow:0 0 0 .2rem rgba(200,164,91,.2);border-color:var(--gold)}
+
+.stats{padding:90px 0 80px}
+.num{font-family:var(--serif);font-size:clamp(3rem,6vw,5rem);line-height:1;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.stat p{color:var(--muted);text-transform:uppercase;letter-spacing:.22em;font-size:.68rem;margin:10px 0 0}
+.marquee{border-block:1px solid var(--line);padding:26px 0;overflow:hidden;background:var(--bg2)}
+.track{display:flex;gap:70px;width:max-content;animation:mq 38s linear infinite}
+.track span{font-family:var(--serif);font-size:2.3rem;letter-spacing:.22em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.32);transition:.4s;white-space:nowrap}
+.track span:hover{color:var(--gold);-webkit-text-stroke-color:var(--gold)}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+.sec-head{max-width:740px;margin-bottom:56px}
+.sec-head.text-center{margin-left:auto;margin-right:auto}
+.display{font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:1.02;letter-spacing:-.01em;margin:14px 0 18px}
+.display em{font-style:italic;color:var(--gold2)}
+.sub{color:var(--muted);font-size:1.02rem}
+
+.feat{border-radius:28px;overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 100px rgba(0,0,0,.65);background:#000}
+.feat .carousel-item{height:clamp(440px,76vh,660px)}
+.feat video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,10,.85) 0%,rgba(7,7,10,.25) 60%,transparent 100%),linear-gradient(0deg,rgba(7,7,10,.8),transparent 45%)}
+.slide-cap{position:absolute;left:0;bottom:0;z-index:3;padding:0 clamp(24px,5vw,64px) 70px;max-width:660px}
+.slide-cap h3{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1;margin:14px 0 12px}
+.slide-cap p{color:rgba(255,255,255,.75);margin-bottom:22px}
+.slide-price{font-family:var(--serif);font-size:2rem;color:var(--gold2)}
+.feat .carousel-indicators{justify-content:flex-end;margin:0 clamp(24px,5vw,64px) 30px}
+.feat .carousel-indicators [data-bs-target]{width:34px;height:3px;border:0;border-radius:3px;background:rgba(255,255,255,.35);opacity:1;transition:.4s var(--ease)}
+.feat .carousel-indicators .active{background:var(--gold);width:56px}
+.carousel-control-prev,.carousel-control-next{width:auto;opacity:1;padding:0 18px}
+.ctrl{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(7,7,10,.5);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px);transition:.3s;font-size:1.1rem;color:#fff}
+.carousel-control-prev:hover .ctrl,.carousel-control-next:hover .ctrl{background:var(--gold);border-color:var(--gold);color:#111}
+@media(max-width:767px){.carousel-control-prev,.carousel-control-next{display:none}}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:transparent;border:1px solid var(--line);color:rgba(255,255,255,.75);padding:.55rem 1.3rem;border-radius:999px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;transition:.35s var(--ease)}
+.chip:hover{border-color:var(--gold);color:#fff}
+.chip.active{background:var(--grad-gold);color:#14100a;border-color:transparent;font-weight:600}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.tools .search{position:relative}
+.tools .search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.tools .search input{padding-left:40px;min-width:240px}
+.tools .form-select{min-width:190px}
+.empty{text-align:center;padding:70px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:22px;margin-top:20px}
+.empty i{font-size:2.4rem;color:var(--gold)}
+.car{background:linear-gradient(180deg,#14141b,#0e0e13);border:1px solid var(--line);border-radius:22px;overflow:hidden;position:relative;height:100%;transition:transform .2s ease-out,box-shadow .4s,border-color .4s;animation:rise .8s var(--ease) backwards;will-change:transform}
+.car:hover{border-color:rgba(200,164,91,.55);box-shadow:0 34px 80px rgba(0,0,0,.6),0 0 0 1px rgba(200,164,91,.12)}
+.media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#000;cursor:pointer}
+.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),opacity .6s}
+.media video{opacity:0}
+.car.playing .media video{opacity:1}
+.car:hover .media img{transform:scale(1.07)}
+.media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.65));z-index:2;pointer-events:none}
+.badge-tag{position:absolute;left:14px;top:14px;z-index:3;padding:5px 13px;border-radius:999px;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;background:rgba(7,7,10,.72);border:1px solid rgba(200,164,91,.6);color:var(--gold2);backdrop-filter:blur(6px)}
+.badge-tag.static{position:static;display:inline-block}
+.fav-btn{position:absolute;right:14px;top:14px;z-index:4;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(7,7,10,.55);backdrop-filter:blur(6px);color:#fff;display:grid;place-items:center;transition:.3s}
+.fav-btn:hover,.fav-btn.on{color:#ff5a6b;border-color:#ff5a6b;transform:scale(1.08)}
+.hover-hint{position:absolute;left:14px;bottom:12px;z-index:3;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(6px);transition:.4s var(--ease)}
+.car:hover .hover-hint{opacity:1;transform:none}
+.car-body{padding:22px 22px 24px}
+.car-body h4{font-size:1.55rem;margin:0 0 2px;line-height:1.15}
+.car-sub{color:var(--muted);font-size:.8rem;letter-spacing:.06em;margin:0}
+.specs{list-style:none;padding:14px 0;margin:16px 0;display:flex;justify-content:space-between;gap:8px;border-block:1px solid var(--line);color:var(--muted);font-size:.76rem}
+.specs li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.specs i{color:var(--gold)}
+.price{font-family:var(--serif);font-size:1.8rem;color:var(--gold2);line-height:1}
+.price.big{font-size:2.6rem}
+
+.player{border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9;box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.player video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.player-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:22px 4px 0}
+.player-bar h3{font-size:1.9rem;margin:6px 0 0}
+.player-bar p{margin:0;color:var(--muted);font-size:.92rem}
+.pb-actions{display:flex;align-items:center;gap:14px}
+.round{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:#fff;display:grid;place-items:center;transition:.3s}
+.round:hover{background:var(--gold);color:#111;border-color:var(--gold)}
+.playlist{display:flex;flex-direction:column;gap:10px;max-height:520px;overflow:auto;padding-right:6px}
+.pl-item{display:flex;gap:14px;align-items:center;padding:10px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.02);text-align:left;color:inherit;transition:.35s var(--ease);width:100%}
+.pl-item:hover{border-color:rgba(200,164,91,.5);transform:translateX(4px)}
+.pl-item.active{border-color:var(--gold);background:rgba(200,164,91,.08)}
+.pl-thumb{position:relative;flex:0 0 112px;height:64px;border-radius:10px;overflow:hidden}
+.pl-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.eq{position:absolute;inset:0;display:none;align-items:flex-end;justify-content:center;gap:3px;padding-bottom:8px;background:rgba(0,0,0,.5)}
+.pl-item.active .eq{display:flex}
+.eq span{display:block;width:3px;background:var(--gold);border-radius:2px;transform-origin:bottom;animation:eq 1s ease-in-out infinite}
+.eq span:nth-child(1){height:10px}.eq span:nth-child(2){height:18px;animation-delay:.2s}.eq span:nth-child(3){height:12px;animation-delay:.4s}
+@keyframes eq{50%{transform:scaleY(.35)}}
+.pl-meta{flex:1;display:flex;flex-direction:column;line-height:1.3;min-width:0}
+.pl-meta b{font-weight:500;font-size:.95rem}
+.pl-meta small{color:var(--muted);font-size:.74rem}
+.pl-item em{font-style:normal;font-size:.72rem;color:var(--gold)}
+@media(max-width:991px){.playlist{max-height:none}}
+
+.band{padding:140px 0;overflow:hidden;isolation:isolate}
+.band>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.band-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(7,7,10,.92) 0%,rgba(7,7,10,.6) 60%,rgba(7,7,10,.35) 100%)}
+.glass-stat{background:rgba(18,18,24,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:20px;padding:26px;height:100%;transition:.4s var(--ease)}
+.glass-stat:hover{border-color:rgba(200,164,91,.5);transform:translateY(-6px)}
+.glass-stat .num{font-size:3.2rem}
+.glass-stat p{margin:6px 0 0;color:var(--muted);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+
+.feature{padding:36px 32px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.02);height:100%;transition:.45s var(--ease);position:relative;overflow:hidden}
+.feature::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0 0,rgba(200,164,91,.18),transparent 55%);opacity:0;transition:.5s}
+.feature:hover{transform:translateY(-8px);border-color:rgba(200,164,91,.5)}
+.feature:hover::before{opacity:1}
+.f-ico{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(200,164,91,.5);color:var(--gold);font-size:1.4rem;margin-bottom:22px;position:relative}
+.feature h5{font-size:1.5rem;margin-bottom:8px;position:relative}
+.feature p{color:var(--muted);margin:0;font-size:.95rem;position:relative}
+
+.calc{background:linear-gradient(180deg,#14141b,#0d0d12);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,4vw,52px);box-shadow:0 40px 100px rgba(0,0,0,.5)}
+.slider-row{margin-bottom:26px}
+.slider-row .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.slider-row .top label{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0}
+.slider-row .top b{font-weight:500;color:var(--gold2)}
+.donut{width:200px;height:200px;border-radius:50%;position:relative;margin:0 auto 24px;background:conic-gradient(var(--gold) 0 80%,rgba(255,255,255,.14) 80% 100%)}
+.donut::after{content:'';position:absolute;inset:22px;border-radius:50%;background:#101016}
+.donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;text-align:center}
+.donut-c small{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.donut-c b{font-family:var(--serif);font-size:2.2rem;font-weight:500;color:var(--gold2);line-height:1.1}
+.legend{list-style:none;padding:0;margin:0 0 24px}
+.legend li{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.legend li span{color:var(--muted)}
+.legend li span::before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:10px;background:rgba(255,255,255,.3)}
+.legend li.p span::before{background:var(--gold)}
+
+.qmark{font-family:var(--serif);font-size:7rem;line-height:.6;color:var(--gold);opacity:.55;height:56px}
+.quote{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.4rem);font-style:italic;line-height:1.35;max-width:860px;margin:0 auto}
+.who{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:30px;text-align:left}
+.avatar{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--grad-gold);color:#14100a;font-family:var(--serif);font-weight:600;font-size:1.35rem}
+.who b{display:block;font-weight:500}
+.who small{color:var(--muted)}
+.stars{color:var(--gold);letter-spacing:3px;font-size:.8rem}
+#testi .carousel-indicators{position:static;margin:38px 0 0}
+#testi .carousel-indicators [data-bs-target]{width:34px;height:3px;border:0;border-radius:3px;background:rgba(255,255,255,.3);opacity:1;transition:.4s}
+#testi .carousel-indicators .active{background:var(--gold);width:56px}
+
+.glass{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,4vw,44px);height:100%}
+.info-item{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.info-item:last-child{border:0}
+.info-item i{flex:0 0 44px;height:44px;border-radius:50%;border:1px solid rgba(200,164,91,.5);color:var(--gold);display:grid;place-items:center}
+.info-item b{display:block;font-weight:500}
+.info-item span{color:var(--muted);font-size:.92rem}
+.invalid-feedback{font-size:.78rem}
+.ok-panel{text-align:center;padding:30px 6px}
+.ok-panel .tick{width:82px;height:82px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-size:2.2rem;color:#14100a;background:var(--grad-gold);animation:pop .7s var(--ease)}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.ref{display:inline-block;margin:10px 0 22px;padding:8px 20px;border:1px dashed rgba(200,164,91,.6);border-radius:999px;color:var(--gold2);letter-spacing:.2em;font-size:.82rem}
+
+footer{background:#050507;border-top:1px solid var(--line);padding:80px 0 34px}
+footer h6{font-family:var(--sans);font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:500}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{margin-bottom:10px}
+footer li a{color:var(--muted);transition:.3s;font-size:.92rem}
+footer li a:hover{color:#fff;padding-left:6px}
+footer p{color:var(--muted);font-size:.92rem}
+.social a{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);margin-right:8px;transition:.35s var(--ease)}
+.social a:hover{background:var(--gold);color:#111;border-color:var(--gold);transform:translateY(-4px)}
+.copy{border-top:1px solid var(--line);margin-top:56px;padding-top:26px;color:var(--muted);font-size:.8rem}
+
+.modal-content{background:#101015;border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.modal-backdrop{--bs-backdrop-opacity:.82}
+.modal-x{position:absolute;top:16px;right:16px;z-index:10;background-color:rgba(7,7,10,.65);border-radius:50%;padding:12px;opacity:1}
+.mvid video{object-fit:cover;background:#000}
+.mbody{padding:clamp(24px,4vw,42px);height:100%;display:flex;flex-direction:column;justify-content:center}
+.mbody h3{font-size:2.3rem;margin:14px 0 4px;line-height:1.1}
+.specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.spec{padding:14px 12px;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;gap:2px}
+.spec i{color:var(--gold)}
+.spec small{color:var(--muted);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase}
+.spec b{font-weight:500;font-size:.88rem}
+.mprice{margin-bottom:22px}
+.mprice small{color:var(--muted);letter-spacing:.2em;text-transform:uppercase;font-size:.62rem}
+.toast{background:#17171f;border:1px solid rgba(200,164,91,.4);color:#fff;border-radius:14px;--bs-toast-bg:#17171f}
+#toTop{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;border:1px solid var(--gold);background:rgba(7,7,10,.7);backdrop-filter:blur(8px);color:var(--gold);font-size:1.2rem;opacity:0;visibility:hidden;transform:translateY(14px);transition:.4s var(--ease);z-index:1000}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:hover{background:var(--gold);color:#111}
+
+.reveal{opacity:0;transform:translateY(38px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}#loader{display:none}</style></noscript>
+</head>
+<body>
+
+<div id="loader"><div class="loader-mark"><i class="bi bi-lightning-charge-fill"></i>APEX</div><div class="loader-bar"><i></i></div></div>
+<div id="progress"></div>
+
+<nav class="navbar navbar-expand-lg fixed-top" id="nav">
+  <div class="container">
+    <a class="navbar-brand" href="#home"><i class="bi bi-lightning-charge-fill"></i>APEX<span>MOTORS</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#featured">Collection</a></li>
+        <li class="nav-item"><a class="nav-link" href="#inventory">Inventory</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cinema">Cinema</a></li>
+        <li class="nav-item"><a class="nav-link" href="#finance">Finance</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+        <button class="nav-fav" id="navFav" type="button" aria-label="Saved cars"><i class="bi bi-heart"></i><b id="favCount" class="d-none">0</b></button>
+        <a href="#contact" class="btn btn-gold btn-sm">Book a Drive</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header id="home" class="hero">
+  <video id="hv0" class="hero-video on" muted playsinline preload="auto" aria-hidden="true" poster="https://assets.mixkit.co/videos/52427/52427-thumb-720-0.jpg"></video>
+  <video id="hv1" class="hero-video" muted playsinline preload="auto" aria-hidden="true"></video>
+  <div class="hero-shade"></div>
+  <div class="container hero-inner">
+    <p class="eyebrow">Premium cars &middot; Showroom &amp; Concierge</p>
+    <h1>Drive the<br><span id="typed" class="typed"></span></h1>
+    <p class="lead">Hand-selected performance, luxury and electric vehicles &mdash; with transparent pricing, 150-point inspections and white-glove delivery.</p>
+    <div class="hero-cta">
+      <a href="#inventory" class="btn btn-gold">Explore Inventory</a>
+      <a href="#cinema" class="btn btn-ghost"><i class="bi bi-play-circle me-2"></i>Showroom Cinema</a>
+    </div>
+  </div>
+  <button id="heroToggle" class="hero-toggle" type="button" aria-label="Pause or play background video"><i class="bi bi-pause-fill"></i></button>
+  <a href="#featured" class="scroll-cue" aria-label="Scroll down"><span></span></a>
+</header>
+
+<section class="finder">
+  <div class="container">
+    <form id="finder" class="finder-box" autocomplete="off">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-3"><label for="qBrand">Brand</label><select id="qBrand" class="form-select"><option value="all">All brands</option></select></div>
+        <div class="col-md-3"><label for="qType">Body type</label>
+          <select id="qType" class="form-select"><option value="all">Any type</option><option value="sedan">Sedan</option><option value="suv">SUV</option><option value="sport">Sport</option><option value="electric">Electric</option></select></div>
+        <div class="col-md-3"><label for="qPrice">Max price <b id="priceLabel"></b></label><input id="qPrice" type="range" class="form-range" min="30000" max="250000" step="5000" value="250000"></div>
+        <div class="col-md-3"><button class="btn btn-gold w-100" type="submit"><i class="bi bi-search me-2"></i>Search cars</button></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container"><div class="row g-4 text-center">
+    <div class="col-6 col-lg-3 reveal"><div class="stat"><span class="num"><span class="count" data-target="1500" data-suffix="+">0</span></span><p>Cars delivered</p></div></div>
+    <div class="col-6 col-lg-3 reveal"><div class="stat"><span class="num"><span class="count" data-target="20" data-suffix="">0</span></span><p>Years of excellence</p></div></div>
+    <div class="col-6 col-lg-3 reveal"><div class="stat"><span class="num"><span class="count" data-target="35" data-suffix="">0</span></span><p>Premium brands</p></div></div>
+    <div class="col-6 col-lg-3 reveal"><div class="stat"><span class="num"><span class="count" data-target="98" data-suffix="%">0</span></span><p>Client satisfaction</p></div></div>
+  </div></div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>BMW</span><span>MERCEDES-BENZ</span><span>PORSCHE</span><span>AUDI</span><span>TESLA</span><span>FORD</span><span>LEXUS</span><span>FERRARI</span><span>BENTLEY</span><span>LAND ROVER</span>
+  <span>BMW</span><span>MERCEDES-BENZ</span><span>PORSCHE</span><span>AUDI</span><span>TESLA</span><span>FORD</span><span>LEXUS</span><span>FERRARI</span><span>BENTLEY</span><span>LAND ROVER</span>
+</div></div>
+
+<section id="featured" class="py-sec">
+  <div class="container">
+    <div class="sec-head reveal"><p class="eyebrow">The Collection</p><h2 class="display">Cars that <em>move</em> you</h2><p class="sub">Four standouts from our floor right now. Each slide plays a live clip of the car.</p></div>
+    <div id="featCarousel" class="carousel slide carousel-fade feat reveal" aria-label="Featured vehicles">
+      <div class="carousel-indicators" id="featInd"></div>
+      <div class="carousel-inner" id="featInner"></div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#featCarousel" data-bs-slide="prev"><span class="ctrl"><i class="bi bi-arrow-left"></i></span><span class="visually-hidden">Previous</span></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#featCarousel" data-bs-slide="next"><span class="ctrl"><i class="bi bi-arrow-right"></i></span><span class="visually-hidden">Next</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="inventory" class="py-sec alt">
+  <div class="container">
+    <div class="sec-head reveal"><p class="eyebrow">Inventory</p><h2 class="display">Find your <em>next</em> drive</h2><p class="sub">Filter, sort and save your favourites. Hover a card to preview the car in motion; click for full details.</p></div>
+    <div class="toolbar reveal">
+      <div class="chips" id="chips">
+        <button class="chip active" type="button" data-type="all">All</button>
+        <button class="chip" type="button" data-type="sedan">Sedan</button>
+        <button class="chip" type="button" data-type="suv">SUV</button>
+        <button class="chip" type="button" data-type="sport">Sport</button>
+        <button class="chip" type="button" data-type="electric">Electric</button>
+      </div>
+      <div class="tools">
+        <div class="search"><i class="bi bi-search"></i><input id="fSearch" type="search" class="form-control" placeholder="Search model, brand, fuel..." aria-label="Search vehicles"></div>
+        <select id="fSort" class="form-select" aria-label="Sort vehicles">
+          <option value="featured">Sort: Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="year">Newest first</option><option value="power">Most powerful</option>
+        </select>
+        <button id="favToggle" class="btn btn-ghost btn-sm" type="button"><i class="bi bi-heart me-1"></i>Saved</button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center my-4 small text-secondary"><span id="resultCount"></span><button id="resetFilters" class="link-btn" type="button">Reset filters</button></div>
+    <div class="row g-4" id="carGrid"></div>
+    <div id="noResults" class="empty d-none"><i class="bi bi-car-front"></i><h4 class="mt-3">No vehicles match</h4><p class="mb-3">Try widening your price range or clearing filters.</p><button class="btn btn-gold btn-sm" id="resetFilters2" type="button">Show all vehicles</button></div>
+  </div>
+</section>
+
+<section id="cinema" class="py-sec">
+  <div class="container">
+    <div class="sec-head text-center reveal"><p class="eyebrow">Showroom Cinema</p><h2 class="display">See it in <em>motion</em></h2><p class="sub">A short film reel of the floor, the details and the drive. Pick a scene from the playlist.</p></div>
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-8 reveal">
+        <div class="player"><video id="cVideo" controls playsinline preload="metadata"></video></div>
+        <div class="player-bar">
+          <div><span class="eyebrow" id="cCount"></span><h3 id="cTitle"></h3><p id="cDesc"></p></div>
+          <div class="pb-actions">
+            <div class="form-check form-switch m-0"><input class="form-check-input" type="checkbox" role="switch" id="autoNext" checked><label class="form-check-label small text-secondary" for="autoNext">Autoplay next</label></div>
+            <button class="round" id="prevClip" type="button" aria-label="Previous clip"><i class="bi bi-skip-start-fill"></i></button>
+            <button class="round" id="nextClip" type="button" aria-label="Next clip"><i class="bi bi-skip-end-fill"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 reveal"><div class="playlist" id="playlist"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <video id="bandVideo" muted loop playsinline preload="none" aria-hidden="true" poster="https://assets.mixkit.co/videos/64/64-thumb-720-0.jpg"></video>
+  <div class="band-shade"></div>
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 reveal">
+        <p class="eyebrow">Engineering</p>
+        <h2 class="display">Performance you can <em>feel</em></h2>
+        <p class="sub mb-4">Every car on our floor is road-tested by our master technicians and arrives with a full service history, so the only thing left to do is enjoy the drive.</p>
+        <a href="#contact" class="btn btn-gold">Book a test drive</a>
+      </div>
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <div class="col-6 reveal"><div class="glass-stat"><span class="num"><span class="count" data-target="150" data-suffix="">0</span></span><p>Point inspection</p></div></div>
+          <div class="col-6 reveal"><div class="glass-stat"><span class="num"><span class="count" data-target="120" data-suffix="+">0</span></span><p>Cars in stock</p></div></div>
+          <div class="col-6 reveal"><div class="glass-stat"><span class="num"><span class="count" data-target="48" data-suffix="h">0</span></span><p>Average delivery</p></div></div>
+          <div class="col-6 reveal"><div class="glass-stat"><span class="num"><span class="count" data-target="5" data-suffix=" yr">0</span></span><p>Warranty cover</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-sec">
+  <div class="container">
+    <div class="sec-head text-center reveal"><p class="eyebrow">The Apex Difference</p><h2 class="display">A showroom built on <em>trust</em></h2></div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature"><div class="f-ico"><i class="bi bi-shield-check"></i></div><h5>150-point inspection</h5><p>Every vehicle is checked head to tail by certified technicians before it reaches the floor.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature"><div class="f-ico"><i class="bi bi-tags"></i></div><h5>Transparent pricing</h5><p>The price you see is the price you pay. No hidden fees, no pressure, no surprises.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature"><div class="f-ico"><i class="bi bi-cash-coin"></i></div><h5>Flexible finance</h5><p>Tailored plans with competitive rates and decisions in as little as one working day.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature"><div class="f-ico"><i class="bi bi-arrow-left-right"></i></div><h5>Instant trade-in</h5><p>Fair, data-backed valuation of your current car, credited straight against your next one.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature"><div class="f-ico"><i class="bi bi-truck"></i></div><h5>Home delivery</h5><p>Your new car, detailed and delivered to your door in our enclosed transporter.</p></div></div>
+      <div class="col-md-6 col-lg-4 reveal"><div class="feature"><div class="f-ico"><i class="bi bi-headset"></i></div><h5>Concierge aftercare</h5><p>Service bookings, roadside help and a dedicated advisor for as long as you own the car.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="finance" class="py-sec alt">
+  <div class="container">
+    <div class="sec-head text-center reveal"><p class="eyebrow">Easy Payments</p><h2 class="display">Finance <em>calculator</em></h2><p class="sub">Move the sliders to see your estimated monthly payment instantly.</p></div>
+    <div class="calc reveal"><div class="row g-5 align-items-center">
+      <div class="col-lg-7">
+        <div class="slider-row"><div class="top"><label for="cPrice">Vehicle price</label><b id="lPrice"></b></div><input id="cPrice" type="range" class="form-range" min="20000" max="250000" step="1000" value="90000"></div>
+        <div class="slider-row"><div class="top"><label for="cDown">Down payment</label><b id="lDown"></b></div><input id="cDown" type="range" class="form-range" min="0" max="81000" step="1000" value="18000"></div>
+        <div class="slider-row"><div class="top"><label for="cRate">Interest rate (APR)</label><b id="lRate"></b></div><input id="cRate" type="range" class="form-range" min="1" max="15" step="0.1" value="5.5"></div>
+        <div class="slider-row mb-0"><div class="top"><label for="cTerm">Loan term</label><b id="lTerm"></b></div><input id="cTerm" type="range" class="form-range" min="12" max="84" step="12" value="60"></div>
+      </div>
+      <div class="col-lg-5">
+        <div class="donut" id="donut"><div class="donut-c"><small>Per month</small><b id="monthly"></b></div></div>
+        <ul class="legend">
+          <li class="p"><span>Amount financed</span><b id="fLoan"></b></li>
+          <li><span>Total interest</span><b id="fInt"></b></li>
+          <li><span>Total cost (incl. down payment)</span><b id="fTotal"></b></li>
+        </ul>
+        <a href="#contact" class="btn btn-gold w-100">Apply for finance</a>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="py-sec">
+  <div class="container">
+    <div class="sec-head text-center reveal"><p class="eyebrow">Testimonials</p><h2 class="display">Driven by <em>delight</em></h2></div>
+    <div id="testi" class="carousel slide text-center reveal" data-bs-ride="carousel" data-bs-interval="6500">
+      <div class="carousel-inner">
+        <div class="carousel-item active"><div class="qmark">&ldquo;</div><p class="quote">The smoothest car purchase I have ever made. They found the exact specification I wanted in two days and delivered it to my door.</p><div class="who"><span class="avatar">D</span><div><b>Daniel R.</b><small>Porsche 911 owner</small><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div></div>
+        <div class="carousel-item"><div class="qmark">&ldquo;</div><p class="quote">Honest valuation on my trade-in, a finance plan that actually made sense and zero pressure. The showroom itself is breathtaking.</p><div class="who"><span class="avatar">S</span><div><b>Sarah K.</b><small>Audi Q7 owner</small><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div></div>
+        <div class="carousel-item"><div class="qmark">&ldquo;</div><p class="quote">Three years on, the aftercare is still exceptional. My advisor knows my car better than I do. I would not buy anywhere else.</p><div class="who"><span class="avatar">I</span><div><b>Imran A.</b><small>BMW M4 owner</small><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div></div></div>
+      </div>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#testi" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#testi" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#testi" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="py-sec alt">
+  <div class="container">
+    <div class="sec-head text-center reveal"><p class="eyebrow">Get In Touch</p><h2 class="display">Book a private <em>test drive</em></h2></div>
+    <div class="row g-4">
+      <div class="col-lg-7 reveal"><div class="glass">
+        <form id="bookForm" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="lbl" for="fName">Full name</label><input id="fName" class="form-control" type="text" placeholder="Your name" autocomplete="name"><div class="invalid-feedback">Please enter your name.</div></div>
+            <div class="col-md-6"><label class="lbl" for="fEmail">Email</label><input id="fEmail" class="form-control" type="email" placeholder="you@example.com" autocomplete="email"><div class="invalid-feedback">Enter a valid email address.</div></div>
+            <div class="col-md-6"><label class="lbl" for="fPhone">Phone</label><input id="fPhone" class="form-control" type="tel" placeholder="+00 000 0000000" autocomplete="tel"><div class="invalid-feedback">Enter a valid phone number.</div></div>
+            <div class="col-md-6"><label class="lbl" for="fCar">Vehicle</label><select id="fCar" class="form-select"><option value="">Select a vehicle</option></select><div class="invalid-feedback">Please choose a vehicle.</div></div>
+            <div class="col-md-6"><label class="lbl" for="fDate">Preferred date</label><input id="fDate" class="form-control" type="date"><div class="invalid-feedback">Choose today or a future date.</div></div>
+            <div class="col-md-6"><label class="lbl" for="fTime">Preferred time</label><select id="fTime" class="form-select"><option value="">Select a time</option><option>10:00</option><option>11:00</option><option>12:00</option><option>13:00</option><option>14:00</option><option>15:00</option><option>16:00</option><option>17:00</option><option>18:00</option></select><div class="invalid-feedback">Pick a time slot.</div></div>
+            <div class="col-12"><label class="lbl" for="fNote">Message (optional)</label><textarea id="fNote" class="form-control" rows="3" placeholder="Anything we should prepare?"></textarea></div>
+            <div class="col-12"><button class="btn btn-gold btn-lg w-100" type="submit">Request test drive</button></div>
+          </div>
+        </form>
+        <div id="bookOk" class="ok-panel d-none">
+          <div class="tick"><i class="bi bi-check-lg"></i></div>
+          <h3>You are booked in</h3>
+          <p class="text-secondary mb-0" id="okText"></p>
+          <div class="ref" id="okRef"></div>
+          <div class="d-flex gap-2 justify-content-center flex-wrap"><button class="btn btn-gold btn-sm" id="addCal" type="button"><i class="bi bi-calendar-plus me-2"></i>Add to calendar</button><button class="btn btn-ghost btn-sm" id="bookAnother" type="button">Book another</button></div>
+        </div>
+      </div></div>
+      <div class="col-lg-5 reveal"><div class="glass">
+        <h4 class="mb-2">Visit the showroom</h4>
+        <div class="info-item"><i class="bi bi-geo-alt"></i><div><b>Address</b><span>12 Prestige Avenue, Motor District</span></div></div>
+        <div class="info-item"><i class="bi bi-telephone"></i><div><b>Phone</b><span>+00 000 000 0000</span></div></div>
+        <div class="info-item"><i class="bi bi-envelope"></i><div><b>Email</b><span>sales@apexmotors.example</span></div></div>
+        <div class="info-item"><i class="bi bi-clock"></i><div><b>Opening hours</b><span>Mon&ndash;Sat 10:00&ndash;20:00 &middot; Sun 12:00&ndash;18:00</span></div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4"><a class="navbar-brand mb-3" href="#home"><i class="bi bi-lightning-charge-fill"></i>APEX<span>MOTORS</span></a><p>Premium new and certified pre-owned cars, presented the way they deserve. Visit us, or let us bring the showroom to you.</p><div class="social"><a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a><a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a><a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a><a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a></div></div>
+      <div class="col-6 col-lg-2"><h6>Explore</h6><ul><li><a href="#featured">Collection</a></li><li><a href="#inventory">Inventory</a></li><li><a href="#cinema">Cinema</a></li><li><a href="#finance">Finance</a></li></ul></div>
+      <div class="col-6 col-lg-2"><h6>Company</h6><ul><li><a href="#contact">Contact</a></li><li><a href="#contact">Test drives</a></li><li><a href="#finance">Trade-in</a></li><li><a href="#home">Home</a></li></ul></div>
+      <div class="col-lg-4"><h6>Newsletter</h6><p>New arrivals and private previews, once a month.</p>
+        <form id="newsForm" class="d-flex gap-2" novalidate><div class="flex-grow-1"><input id="nEmail" class="form-control" type="email" placeholder="Your email" aria-label="Email address"></div><button class="btn btn-gold" type="submit">Join</button></form></div>
+    </div>
+    <div class="copy d-flex flex-wrap justify-content-between gap-2"><span>&copy; <span id="yr"></span> Apex Motors. All rights reserved.</span><span>Sample vehicles shown for demonstration.</span></div>
+  </div>
+</footer>
+
+<button id="toTop" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+<div class="modal fade" id="carModal" tabindex="-1" aria-labelledby="mTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <button type="button" class="btn-close modal-x" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="row g-0">
+        <div class="col-lg-7"><div class="ratio ratio-16x9 mvid h-100"><video id="mVideo" muted loop playsinline preload="metadata"></video></div></div>
+        <div class="col-lg-5"><div class="mbody">
+          <span class="badge-tag static" id="mTag"></span>
+          <h3 id="mTitle"></h3><p class="car-sub" id="mSub"></p>
+          <div class="specs-grid" id="mSpecs"></div>
+          <div class="mprice"><small>Price</small><div class="price big" id="mPrice"></div></div>
+          <div class="d-flex gap-2 flex-wrap"><button class="btn btn-gold" id="mBook" type="button">Book test drive</button><button class="btn btn-ghost" id="mFav" type="button"><i class="bi bi-heart"></i> <span>Save</span></button></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" id="toasts"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(function () {
+  'use strict';
+
+  const CUR = '$';
+  const fmt = n => CUR + Math.round(n).toLocaleString('en-US');
+  const TYPE = { sedan: 'Sedan', suv: 'SUV', sport: 'Sport', electric: 'Electric' };
+  // Stock clips from Mixkit (free licence). 720p file first, 360p preview file as automatic fallback.
+  const VID = id => `https://assets.mixkit.co/videos/${id}/${id}-720.mp4`;
+  const VID_LOW = id => `https://assets.mixkit.co/videos/${id}/${id}-360.mp4`;
+  const THUMB = id => id === 49
+    ? 'https://assets.mixkit.co/videos/49/49-thumb-720-2.jpg'
+    : `https://assets.mixkit.co/videos/${id}/${id}-thumb-720-0.jpg`;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const play = v => { try { const p = v.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} };
+  function setVideo(v, id) {
+    v.dataset.fallback = '0';
+    v.onerror = function () {
+      if (v.dataset.fallback === '0') {
+        v.dataset.fallback = '1'; v.src = VID_LOW(id); v.load();
+        if (v.dataset.want === '1') play(v);
+      }
+    };
+    v.src = VID(id); v.load();
+  }
+  function toast(msg, icon) {
+    const $t = $(`<div class="toast align-items-center" role="status" aria-live="polite" aria-atomic="true"><div class="d-flex"><div class="toast-body"><i class="bi ${icon || 'bi-check-circle-fill'} me-2 text-gold"></i>${msg}</div><button type="button" class="btn-close me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div></div>`);
+    $('#toasts').append($t);
+    $t.on('hidden.bs.toast', () => $t.remove());
+    new bootstrap.Toast($t[0], { delay: 3200 }).show();
+  }
+  function goTo(sel) {
+    const $t = $(sel); if (!$t.length) return;
+    $('html,body').stop().animate({ scrollTop: Math.max(0, $t.offset().top - 68) }, 800);
+  }
+
+  let loaderGone = false;
+  function hideLoader() { if (loaderGone) return; loaderGone = true; $('#loader').addClass('done'); setTimeout(() => $('#loader').remove(), 900); }
+  $(window).on('load', () => setTimeout(hideLoader, 350));
+  setTimeout(hideLoader, 3000);
+
+  $(document).on('click', 'a[href^="#"]', function (e) {
+    const h = this.getAttribute('href');
+    if (h.length > 1 && $(h).length) {
+      e.preventDefault(); goTo(h);
+      const nm = document.getElementById('navMenu');
+      if (nm && nm.classList.contains('show')) bootstrap.Collapse.getOrCreateInstance(nm).hide();
+    }
+  });
+
+  const spyIds = ['home', 'featured', 'inventory', 'cinema', 'finance', 'contact'];
+  function onScroll() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    $('#nav').toggleClass('scrolled', y > 50);
+    $('#toTop').toggleClass('show', y > 600);
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    $('#progress').css('width', (h > 0 ? y / h * 100 : 0) + '%');
+    let cur = 'home';
+    spyIds.forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= 140) cur = id; });
+    $('#navMenu .nav-link').removeClass('active').filter(`[href="#${cur}"]`).addClass('active');
+    if (y < window.innerHeight) {
+      $('.hero-inner').css({ transform: `translateY(${y * 0.18}px)`, opacity: Math.max(0, 1 - y / (window.innerHeight * 0.85)) });
+    }
+  }
+  let ticking = false;
+  $(window).on('scroll resize', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { onScroll(); ticking = false; }); } });
+  onScroll();
+  $('#toTop').on('click', () => $('html,body').animate({ scrollTop: 0 }, 700));
+
+  const words = ['Extraordinary', 'Iconic', 'Unforgettable', 'Yours'];
+  let wi = 0, ci = 0, del = false;
+  (function tick() {
+    const w = words[wi];
+    ci += del ? -1 : 1;
+    $('#typed').text(w.slice(0, ci));
+    let delay = del ? 55 : 100;
+    if (!del && ci === w.length) { del = true; delay = 1600; }
+    else if (del && ci === 0) { del = false; wi = (wi + 1) % words.length; delay = 300; }
+    setTimeout(tick, delay);
+  })();
+
+  const heroIds = [52427, 66, 49, 74];
+  const hv = [document.getElementById('hv0'), document.getElementById('hv1')];
+  let hActive = 0, hIndex = 0, heroUserPaused = false;
+  hv.forEach(v => { v.muted = true; });
+  hv[0].dataset.want = '1'; setVideo(hv[0], heroIds[0]); play(hv[0]);
+  function nextHero() {
+    hIndex = (hIndex + 1) % heroIds.length;
+    const nxt = 1 - hActive, v = hv[nxt], cur = hv[hActive];
+    v.dataset.want = '1'; setVideo(v, heroIds[hIndex]);
+    v.addEventListener('playing', () => { $(v).addClass('on'); $(cur).removeClass('on'); hActive = nxt; }, { once: true });
+    play(v);
+  }
+  hv.forEach((v, i) => v.addEventListener('ended', () => { if (i === hActive && !heroUserPaused) nextHero(); }));
+  function setHeroIcon(playing) { $('#heroToggle i').attr('class', 'bi ' + (playing ? 'bi-pause-fill' : 'bi-play-fill')); }
+  $('#heroToggle').on('click', function () {
+    const v = hv[hActive];
+    if (v.paused) { heroUserPaused = false; play(v); setHeroIcon(true); }
+    else { heroUserPaused = true; v.pause(); setHeroIcon(false); }
+  });
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroUserPaused = true; hv[0].pause(); setHeroIcon(false);
+  }
+  new IntersectionObserver(es => es.forEach(en => {
+    if (heroUserPaused) return;
+    const v = hv[hActive];
+    if (en.isIntersecting) play(v); else v.pause();
+  }), { threshold: 0.1 }).observe(document.getElementById('home'));
+
+  const cars = [
+    { name: 'Porsche 911 Carrera S', brand: 'Porsche', type: 'sport',    year: 2025, price: 135000, hp: 443,  trans: 'Auto',   fuel: 'Petrol',   km: 'New',       clip: 52427, fx: '',                                                  tag: 'New',       feat: true, tagline: 'Pure driving theatre. 0-100 km/h in 3.5 seconds.' },
+    { name: 'BMW M4 Competition',    brand: 'BMW',     type: 'sport',    year: 2024, price: 89500,  hp: 503,  trans: 'Auto',   fuel: 'Petrol',   km: '4,200 km',  clip: 74,    fx: 'hue-rotate(205deg) saturate(1.25)',                 tag: 'Hot',       feat: true, tagline: '503 horsepower of precision, tuned for track and street.' },
+    { name: 'Mercedes C300',         brand: 'Mercedes',type: 'sedan',    year: 2025, price: 56000,  hp: 255,  trans: 'Auto',   fuel: 'Petrol',   km: 'New',       clip: 66,    fx: 'grayscale(1) brightness(1.15) contrast(1.1)',       tag: 'New' },
+    { name: 'Audi Q7 Premium Plus',  brand: 'Audi',    type: 'suv',      year: 2023, price: 72000,  hp: 335,  trans: 'Auto',   fuel: 'Petrol',   km: '18,500 km', clip: 63,    fx: 'hue-rotate(125deg) saturate(.9) brightness(.9)',    tag: 'Certified' },
+    { name: 'Tesla Model S Plaid',   brand: 'Tesla',   type: 'electric', year: 2025, price: 98000,  hp: 1020, trans: '1-Speed',fuel: 'Electric', km: 'New',       clip: 50,    fx: 'grayscale(1) brightness(1.35)',                     tag: 'EV',        feat: true, tagline: 'Silent, staggering acceleration with zero tailpipe emissions.' },
+    { name: 'Ford Mustang GT',       brand: 'Ford',    type: 'sport',    year: 2023, price: 48000,  hp: 480,  trans: 'Manual', fuel: 'Petrol',   km: '12,900 km', clip: 49,    fx: 'hue-rotate(38deg) saturate(1.4)',                   tag: 'Certified', feat: true, tagline: 'Naturally aspirated V8 muscle with a six-speed manual.' },
+    { name: 'BMW 540i xDrive',       brand: 'BMW',     type: 'sedan',    year: 2024, price: 64000,  hp: 375,  trans: 'Auto',   fuel: 'Petrol',   km: '6,800 km',  clip: 66,    fx: 'hue-rotate(205deg) brightness(.7)',                 tag: 'Certified' },
+    { name: 'Mercedes GLE 450',      brand: 'Mercedes',type: 'suv',      year: 2024, price: 81000,  hp: 362,  trans: 'Auto',   fuel: 'Petrol',   km: 'New',       clip: 74,    fx: 'hue-rotate(255deg) saturate(.8) brightness(.85)',   tag: 'New' },
+    { name: 'Tesla Model 3 Performance', brand: 'Tesla', type: 'electric', year: 2025, price: 42000, hp: 510, trans: '1-Speed',fuel: 'Electric', km: 'New',       clip: 63,    fx: 'hue-rotate(165deg) saturate(1.1)',                  tag: 'EV' }
+  ];
+  cars.forEach((c, i) => { c.id = i; });
+  const fx = c => c.fx || 'none';
+
+  const feats = cars.filter(c => c.feat);
+  $('#featInner').html(feats.map((c, i) => `
+    <div class="carousel-item${i === 0 ? ' active' : ''}">
+      <video muted loop playsinline preload="none" poster="${THUMB(c.clip)}" style="filter:${fx(c)}" aria-hidden="true"></video>
+      <div class="slide-shade"></div>
+      <div class="slide-cap">
+        <span class="eyebrow">${c.tag} &middot; ${c.year}</span>
+        <h3>${c.name}</h3>
+        <p>${c.tagline}</p>
+        <div class="d-flex flex-wrap align-items-center gap-3"><span class="slide-price">${fmt(c.price)}</span><button class="btn btn-gold btn-sm view-car" type="button" data-id="${c.id}">View details</button></div>
+      </div>
+    </div>`).join(''));
+  $('#featInd').html(feats.map((c, i) => `<button type="button" data-bs-target="#featCarousel" data-bs-slide-to="${i}"${i === 0 ? ' class="active" aria-current="true"' : ''} aria-label="Slide ${i + 1}"></button>`).join(''));
+  const featEl = document.getElementById('featCarousel');
+  function featPlay(item) {
+    const mine = item.querySelector('video');
+    $('#featInner video').each(function () { if (this !== mine) this.pause(); });
+    if (!mine.getAttribute('src')) { mine.dataset.want = '1'; setVideo(mine, feats[$(item).index()].clip); }
+    play(mine);
+  }
+  bootstrap.Carousel.getOrCreateInstance(featEl, { interval: 7000, ride: 'carousel' });
+  featPlay($('#featInner .carousel-item.active')[0]);
+  featEl.addEventListener('slid.bs.carousel', e => featPlay(e.relatedTarget));
+
+  const state = { type: 'all', brand: 'all', max: 250000, q: '', sort: 'featured', fav: false };
+  let favs = store.get('apex_favs', []);
+  const sorters = {
+    featured: (a, b) => a.id - b.id,
+    low: (a, b) => a.price - b.price,
+    high: (a, b) => b.price - a.price,
+    year: (a, b) => b.year - a.year || a.id - b.id,
+    power: (a, b) => b.hp - a.hp
+  };
+  [...new Set(cars.map(c => c.brand))].sort().forEach(b => $('#qBrand').append(`<option value="${b}">${b}</option>`));
+  cars.forEach(c => $('#fCar').append(`<option value="${c.name}">${c.name} &mdash; ${fmt(c.price)}</option>`));
+  $('#fCar').append('<option value="Not sure yet">Not sure yet - advise me</option>');
+  $('#priceLabel').text(fmt(250000));
+
+  function syncFavUI() {
+    $('#favCount').text(favs.length).toggleClass('d-none', !favs.length);
+    $('#navFav i').attr('class', 'bi ' + (favs.length ? 'bi-heart-fill text-gold' : 'bi-heart'));
+  }
+  function syncChips() { $('#chips .chip').removeClass('active').filter(`[data-type="${state.type}"]`).addClass('active'); }
+
+  function cardHTML(c, idx) {
+    const fav = favs.includes(c.id);
+    return `<div class="col-md-6 col-xl-4"><article class="car" data-id="${c.id}" style="animation-delay:${Math.min(idx, 8) * 70}ms">
+      <div class="media">
+        <span class="badge-tag">${c.tag}</span>
+        <button class="fav-btn${fav ? ' on' : ''}" type="button" data-id="${c.id}" aria-label="Save ${c.name}"><i class="bi ${fav ? 'bi-heart-fill' : 'bi-heart'}"></i></button>
+        <img loading="lazy" src="${THUMB(c.clip)}" alt="${c.name}" style="filter:${fx(c)}">
+        <video muted loop playsinline preload="none" style="filter:${fx(c)}" aria-hidden="true"></video>
+        <span class="hover-hint"><i class="bi bi-play-fill"></i> Preview</span>
+      </div>
+      <div class="car-body">
+        <h4>${c.name}</h4>
+        <p class="car-sub">${c.year} &middot; ${TYPE[c.type]} &middot; ${c.km}</p>
+        <ul class="specs"><li><i class="bi bi-speedometer2"></i>${c.hp} HP</li><li><i class="bi bi-gear-wide-connected"></i>${c.trans}</li><li><i class="bi bi-fuel-pump"></i>${c.fuel}</li></ul>
+        <div class="d-flex justify-content-between align-items-center"><span class="price">${fmt(c.price)}</span><button class="btn btn-ghost btn-sm view-car" type="button" data-id="${c.id}">Details <i class="bi bi-arrow-right ms-1"></i></button></div>
+      </div></article></div>`;
+  }
+  function render() {
+    const q = state.q.trim().toLowerCase();
+    const list = cars.filter(c =>
+      (state.type === 'all' || c.type === state.type) &&
+      (state.brand === 'all' || c.brand === state.brand) &&
+      c.price <= state.max &&
+      (!state.fav || favs.includes(c.id)) &&
+      (!q || `${c.name} ${c.brand} ${TYPE[c.type]} ${c.fuel} ${c.year}`.toLowerCase().includes(q))
+    ).sort(sorters[state.sort]);
+    $('#carGrid').html(list.map(cardHTML).join(''));
+    $('#resultCount').text(`Showing ${list.length} of ${cars.length} vehicles`);
+    $('#noResults').toggleClass('d-none', list.length > 0);
+    $('#favToggle').toggleClass('on', state.fav);
+  }
+  function resetAll() {
+    Object.assign(state, { type: 'all', brand: 'all', max: 250000, q: '', sort: 'featured', fav: false });
+    $('#qBrand').val('all'); $('#qType').val('all'); $('#qPrice').val(250000); $('#priceLabel').text(fmt(250000));
+    $('#fSearch').val(''); $('#fSort').val('featured'); syncChips(); render();
+  }
+
+  $('#qPrice').on('input', function () { $('#priceLabel').text(fmt(this.value)); });
+  $('#finder').on('submit', function (e) {
+    e.preventDefault();
+    state.brand = $('#qBrand').val(); state.type = $('#qType').val(); state.max = +$('#qPrice').val(); state.fav = false;
+    syncChips(); render(); goTo('#inventory');
+  });
+  $('#chips').on('click', '.chip', function () { state.type = $(this).data('type'); $('#qType').val(state.type); syncChips(); render(); });
+  let searchTimer;
+  $('#fSearch').on('input', function () { const v = this.value; clearTimeout(searchTimer); searchTimer = setTimeout(() => { state.q = v; render(); }, 180); });
+  $('#fSort').on('change', function () { state.sort = this.value; render(); });
+  $('#resetFilters, #resetFilters2').on('click', resetAll);
+  $('#favToggle').on('click', function () {
+    if (!state.fav && !favs.length) { toast('You have not saved any cars yet. Tap a heart to save one.', 'bi-heart'); return; }
+    state.fav = !state.fav; render();
+  });
+  $('#navFav').on('click', function () {
+    if (!favs.length) { toast('You have not saved any cars yet. Tap a heart to save one.', 'bi-heart'); return; }
+    state.fav = true; render(); goTo('#inventory');
+  });
+
+  function toggleFav(id) {
+    const i = favs.indexOf(id), adding = i < 0;
+    if (adding) favs.push(id); else favs.splice(i, 1);
+    store.set('apex_favs', favs); syncFavUI();
+    $(`.fav-btn[data-id="${id}"]`).toggleClass('on', adding).find('i').attr('class', 'bi ' + (adding ? 'bi-heart-fill' : 'bi-heart'));
+    toast(adding ? `Saved <b>${cars[id].name}</b>` : 'Removed from saved cars', adding ? 'bi-heart-fill' : 'bi-heart');
+    if (state.fav) render();
+  }
+  $(document).on('click', '.fav-btn', function (e) { e.preventDefault(); e.stopPropagation(); toggleFav(+$(this).data('id')); });
+
+  $('#carGrid').on('mouseenter', '.car', function () {
+    const $c = $(this), v = $c.find('video')[0], car = cars[+$c.data('id')];
+    if (!v.getAttribute('src')) setVideo(v, car.clip);
+    v.dataset.want = '1'; play(v); $c.addClass('playing');
+  }).on('mouseleave', '.car', function () {
+    const $c = $(this), v = $c.find('video')[0];
+    v.dataset.want = '0'; v.pause(); $c.removeClass('playing'); this.style.transform = '';
+  }).on('mousemove', '.car', function (e) {
+    const r = this.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    this.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-6px)`;
+  }).on('click', '.media', function (e) {
+    if ($(e.target).closest('.fav-btn').length) return;
+    openCar(+$(this).closest('.car').data('id'));
+  });
+
+  const carModalEl = document.getElementById('carModal');
+  const carModal = bootstrap.Modal.getOrCreateInstance(carModalEl);
+  const mVideo = document.getElementById('mVideo');
+  let modalCar = cars[0];
+  function syncModalFav() {
+    const on = favs.includes(modalCar.id);
+    $('#mFav').toggleClass('on', on).find('i').attr('class', 'bi ' + (on ? 'bi-heart-fill' : 'bi-heart'));
+    $('#mFav span').text(on ? 'Saved' : 'Save');
+  }
+  function openCar(id) {
+    const c = cars[id]; modalCar = c;
+    $('#mTag').text(c.tag); $('#mTitle').text(c.name);
+    $('#mSub').text(`${c.year} \u00b7 ${c.brand} \u00b7 ${TYPE[c.type]} \u00b7 ${c.km}`);
+    $('#mPrice').text(fmt(c.price));
+    $('#mSpecs').html([
+      ['bi-speedometer2', 'Power', c.hp + ' HP'], ['bi-gear-wide-connected', 'Gearbox', c.trans], ['bi-fuel-pump', 'Fuel', c.fuel],
+      ['bi-calendar3', 'Year', c.year], ['bi-signpost-2', 'Mileage', c.km], ['bi-shield-check', 'Warranty', c.km === 'New' ? '5 years' : '3 years']
+    ].map(s => `<div class="spec"><i class="bi ${s[0]}"></i><small>${s[1]}</small><b>${s[2]}</b></div>`).join(''));
+    mVideo.poster = THUMB(c.clip); mVideo.style.filter = fx(c); mVideo.dataset.want = '1'; setVideo(mVideo, c.clip);
+    syncModalFav(); carModal.show();
+  }
+  carModalEl.addEventListener('shown.bs.modal', () => play(mVideo));
+  carModalEl.addEventListener('hidden.bs.modal', () => { mVideo.dataset.want = '0'; mVideo.pause(); mVideo.removeAttribute('src'); mVideo.load(); });
+  $(document).on('click', '.view-car', function () { openCar(+$(this).data('id')); });
+  $('#mFav').on('click', function () { toggleFav(modalCar.id); syncModalFav(); });
+  $('#mBook').on('click', function () {
+    carModal.hide(); $('#fCar').val(modalCar.name).removeClass('is-invalid');
+    setTimeout(() => goTo('#contact'), 380);
+  });
+
+  const clips = [
+    { id: 52427, title: 'Dawn Drive',         desc: 'First light on a winding mountain road', dur: '0:07' },
+    { id: 74,    title: 'Underground Garage', desc: 'Rear three-quarter reveal in the car park', dur: '0:10' },
+    { id: 63,    title: 'Macro Details',      desc: 'From tail-lights to door handle',       dur: '0:12' },
+    { id: 50,    title: 'Side Profile',       desc: 'Low-angle pan along the bodywork',      dur: '0:08' },
+    { id: 66,    title: 'Studio Reveal',      desc: 'A slow zoom inside the showroom',       dur: '0:13' },
+    { id: 49,    title: 'Light Signature',    desc: 'Headlight, mirror and spoiler close-ups', dur: '0:08' },
+    { id: 64,    title: 'Cockpit Launch',     desc: 'Illuminated dashboard under acceleration', dur: '0:17' }
+  ];
+  $('#playlist').html(clips.map((c, i) => `
+    <button class="pl-item" type="button" data-i="${i}">
+      <span class="pl-thumb"><img loading="lazy" src="${THUMB(c.id)}" alt=""><span class="eq"><span></span><span></span><span></span></span></span>
+      <span class="pl-meta"><b>${c.title}</b><small>${c.desc}</small></span><em>${c.dur}</em>
+    </button>`).join(''));
+  const cv = document.getElementById('cVideo');
+  let cIndex = 0;
+  function loadClip(i, autoplay) {
+    cIndex = (i + clips.length) % clips.length;
+    const c = clips[cIndex];
+    cv.poster = THUMB(c.id); cv.dataset.want = autoplay ? '1' : '0'; setVideo(cv, c.id);
+    $('#cTitle').text(c.title); $('#cDesc').text(c.desc);
+    $('#cCount').text(`${String(cIndex + 1).padStart(2, '0')} / ${String(clips.length).padStart(2, '0')}`);
+    $('#playlist .pl-item').removeClass('active').eq(cIndex).addClass('active');
+    if (autoplay) play(cv);
+  }
+  $('#playlist').on('click', '.pl-item', function () { loadClip(+$(this).data('i'), true); });
+  $('#prevClip').on('click', () => loadClip(cIndex - 1, true));
+  $('#nextClip').on('click', () => loadClip(cIndex + 1, true));
+  cv.addEventListener('ended', () => { if ($('#autoNext').is(':checked')) loadClip(cIndex + 1, true); });
+  loadClip(0, false);
+
+  const bandVideo = document.getElementById('bandVideo');
+  new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) { if (!bandVideo.getAttribute('src')) { bandVideo.dataset.want = '1'; setVideo(bandVideo, 64); } play(bandVideo); }
+    else bandVideo.pause();
+  }), { threshold: 0.15 }).observe(bandVideo);
+
+  function countUp($el) {
+    const t = +$el.data('target'), suf = $el.data('suffix') || '';
+    $({ n: 0 }).animate({ n: t }, {
+      duration: 1800, easing: 'swing',
+      step: function () { $el.text(Math.floor(this.n).toLocaleString('en-US') + suf); },
+      complete: function () { $el.text(t.toLocaleString('en-US') + suf); }
+    });
+  }
+  const rio = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return;
+    const el = en.target, $e = $(el);
+    $e.addClass('in');
+    $e.find('.count').each(function () { countUp($(this)); });
+    setTimeout(() => { el.style.transitionDelay = ''; }, 1500);
+    rio.unobserve(el);
+  }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  $('.reveal').each(function (i) { this.style.transitionDelay = ((i % 4) * 90) + 'ms'; rio.observe(this); });
+
+  function calc() {
+    const P = +$('#cPrice').val(), R = +$('#cRate').val(), T = +$('#cTerm').val();
+    const maxD = Math.max(0, Math.round(P * 0.9 / 1000) * 1000);
+    $('#cDown').attr('max', maxD);
+    const D = Math.min(+$('#cDown').val(), maxD);
+    if (+$('#cDown').val() !== D) $('#cDown').val(D);
+    const L = P - D, r = R / 1200;
+    const m = L <= 0 ? 0 : (r ? L * r / (1 - Math.pow(1 + r, -T)) : L / T);
+    const total = m * T, interest = Math.max(0, total - L);
+    $('#lPrice').text(fmt(P)); $('#lDown').text(`${fmt(D)} (${P ? Math.round(D / P * 100) : 0}%)`);
+    $('#lRate').text(R.toFixed(1) + '%'); $('#lTerm').text(T + ' months');
+    $('#monthly').text(fmt(m)); $('#fLoan').text(fmt(L)); $('#fInt').text(fmt(interest)); $('#fTotal').text(fmt(total + D));
+    const pp = total ? L / total * 100 : 100;
+    $('#donut').css('background', `conic-gradient(var(--gold) 0 ${pp}%, rgba(255,255,255,.14) ${pp}% 100%)`);
+  }
+  $('#cPrice,#cDown,#cRate,#cTerm').on('input', calc); calc();
+
+  const now = new Date();
+  const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  $('#fDate').attr('min', todayISO);
+  const rules = {
+    fName: v => v.trim().length >= 2,
+    fEmail: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
+    fPhone: v => v.replace(/\D/g, '').length >= 7,
+    fCar: v => !!v,
+    fDate: v => !!v && v >= todayISO,
+    fTime: v => !!v
+  };
+  function validateField(id) {
+    const el = document.getElementById(id), ok = rules[id](el.value);
+    $(el).toggleClass('is-invalid', !ok); return ok;
+  }
+  $('#bookForm').on('input change', '.form-control, .form-select', function () {
+    if (rules[this.id] && $(this).hasClass('is-invalid')) validateField(this.id);
+  });
+  let lastBooking = null;
+  $('#bookForm').on('submit', function (e) {
+    e.preventDefault();
+    let ok = true;
+    Object.keys(rules).forEach(id => { if (!validateField(id)) ok = false; });
+    if (!ok) { toast('Please check the highlighted fields.', 'bi-exclamation-circle-fill'); $(this).find('.is-invalid').first().trigger('focus'); return; }
+    lastBooking = {
+      ref: 'APX-' + Date.now().toString(36).slice(-5).toUpperCase(),
+      name: $('#fName').val().trim(), email: $('#fEmail').val().trim(), phone: $('#fPhone').val().trim(),
+      car: $('#fCar').val(), date: $('#fDate').val(), time: $('#fTime').val(), note: $('#fNote').val().trim()
+    };
+    store.set('apex_bookings', store.get('apex_bookings', []).concat([lastBooking]));
+    const pretty = new Date(lastBooking.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    $('#okText').text(`Thank you, ${lastBooking.name.split(' ')[0]}. We have reserved the ${lastBooking.car} for ${pretty} at ${lastBooking.time}.`);
+    $('#okRef').text(lastBooking.ref);
+    $('#bookForm').addClass('d-none'); $('#bookOk').removeClass('d-none');
+    toast('Test drive requested. Check your booking below.', 'bi-calendar-check-fill');
+  });
+  $('#bookAnother').on('click', function () {
+    $('#bookForm')[0].reset(); $('#bookForm .is-invalid').removeClass('is-invalid');
+    $('#bookOk').addClass('d-none'); $('#bookForm').removeClass('d-none');
+  });
+  $('#addCal').on('click', function () {
+    if (!lastBooking) return;
+    const d = lastBooking.date.replace(/-/g, ''), h = parseInt(lastBooking.time, 10);
+    const pad = n => String(n).padStart(2, '0');
+    const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Apex Motors//Test Drive//EN', 'BEGIN:VEVENT',
+      `UID:${lastBooking.ref}@apexmotors`, `DTSTAMP:${stamp}`, `DTSTART:${d}T${pad(h)}0000`, `DTEND:${d}T${pad(h + 1)}0000`,
+      `SUMMARY:Test drive - ${lastBooking.car}`, 'LOCATION:Apex Motors Showroom', `DESCRIPTION:Booking reference ${lastBooking.ref}`,
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    a.download = `test-drive-${lastBooking.ref}.ics`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+
+  $('#newsForm').on('submit', function (e) {
+    e.preventDefault();
+    const v = $('#nEmail').val().trim(), ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    $('#nEmail').toggleClass('is-invalid', !ok);
+    if (!ok) { toast('Please enter a valid email address.', 'bi-exclamation-circle-fill'); return; }
+    store.set('apex_news', store.get('apex_news', []).concat([v]));
+    this.reset(); toast('Welcome to the Apex list.', 'bi-envelope-check-fill');
+  });
+
+  $('#yr').text(now.getFullYear());
+  syncFavUI(); render();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        $(function () {
+
+  const U = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`;
+  const cars = [
+    { name: 'Porsche 911 Carrera', brand: 'Porsche', type: 'sport',    price: 135000, img: U('photo-1503376780353-7e6692767b70'), hp: '443 HP', trans: 'Auto',  fuel: 'Petrol',   tag: 'New' },
+    { name: 'BMW M4 Competition',  brand: 'BMW',     type: 'sport',    price: 89500,  img: U('photo-1555215695-3004980ad54e'),   hp: '503 HP', trans: 'Auto',  fuel: 'Petrol',   tag: 'Hot' },
+    { name: 'Mercedes C-Class',    brand: 'Mercedes',type: 'sedan',    price: 56000,  img: U('photo-1542362567-b07e54358753'),   hp: '255 HP', trans: 'Auto',  fuel: 'Hybrid',   tag: 'New' },
+    { name: 'Audi Q7 Premium',     brand: 'Audi',    type: 'suv',      price: 72000,  img: U('photo-1494976388531-d1058494cdd8'),hp: '335 HP', trans: 'Auto',  fuel: 'Petrol',   tag: 'Used' },
+    { name: 'Tesla Model S Plaid', brand: 'Tesla',   type: 'electric', price: 98000,  img: U('photo-1552519507-da3b142c6e3d'),   hp: '1020 HP',trans: 'Auto',  fuel: 'Electric', tag: 'EV' },
+    { name: 'Ford Mustang GT',     brand: 'Ford',    type: 'sport',    price: 48000,  img: U('photo-1503736334956-4c8f8e92946d'),hp: '480 HP', trans: 'Manual',fuel: 'Petrol',   tag: 'Used' },
+    { name: 'BMW 5 Series',        brand: 'BMW',     type: 'sedan',    price: 64000,  img: U('photo-1555215695-3004980ad54e'),   hp: '335 HP', trans: 'Auto',  fuel: 'Hybrid',   tag: 'New' },
+    { name: 'Mercedes GLE SUV',    brand: 'Mercedes',type: 'suv',      price: 81000,  img: U('photo-1583121274602-3e2820c69888'),hp: '362 HP', trans: 'Auto',  fuel: 'Petrol',   tag: 'New' },
+    { name: 'Tesla Model 3',       brand: 'Tesla',   type: 'electric', price: 42000,  img: U('photo-1492144534655-ae79c964c9d7'),hp: '283 HP', trans: 'Auto',  fuel: 'Electric', tag: 'EV' }
+  ];
+  const fmt = n => '$' + Math.round(n).toLocaleString();
+
+  const fallbackSVG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a0806"/><stop offset="1" stop-color="#0b0b0f"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#e10600" font-size="48" font-family="Arial" text-anchor="middle">APEX MOTORS</text></svg>');
+  $(document).on('error', 'img', function () { if (this.src !== fallbackSVG) this.src = fallbackSVG; });
+  document.addEventListener('error', e => { if (e.target.tagName === 'IMG' && e.target.src !== fallbackSVG) e.target.src = fallbackSVG; }, true);
+
+  function render(list) {
+    const $g = $('#carGrid').empty();
+    list.forEach(c => {
+      $g.append(`
+        <div class="col-md-6 col-lg-4 car-item">
+          <div class="car-card" data-tilt>
+            <div class="car-img">
+              <span class="badge-tag">${c.tag}</span>
+              <button class="fav" aria-label="Favourite"><i class="bi bi-heart-fill"></i></button>
+              <img loading="lazy" src="${c.img}" alt="${c.name}">
+            </div>
+            <div class="car-body">
+              <h5>${c.name}</h5>
+              <small class="text-muted text-uppercase">${c.brand} &bull; ${c.type}</small>
+              <div class="specs"><span><i class="bi bi-speedometer2"></i> ${c.hp}</span><span><i class="bi bi-gear"></i> ${c.trans}</span><span><i class="bi bi-fuel-pump"></i> ${c.fuel}</span></div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">${fmt(c.price)}</span>
+                <button class="btn btn-apex btn-sm quick-view" data-name="${c.name}" data-price="${fmt(c.price)}" data-img="${c.img}">Details</button>
+              </div>
+            </div>
+          </div>
+        </div>`);
+      $('#fCar').find(`option[value="${c.name}"]`).length || $('#fCar').append(`<option>${c.name}</option>`);
+    });
+    $('#noResults').toggleClass('d-none', list.length > 0);
+  }
+
+  let state = { type: 'all', brand: 'all', max: 200000 };
+  function applyFilters() {
+    render(cars.filter(c =>
+      (state.type === 'all' || c.type === state.type) &&
+      (state.brand === 'all' || c.brand === state.brand) &&
+      c.price <= state.max));
+  }
+  render(cars);
+
+  $('.filter-btn').on('click', function () {
+    $('.filter-btn').removeClass('active'); $(this).addClass('active');
+    state.type = $(this).data('filter'); $('#qType').val(state.type); applyFilters();
+  });
+  $('#qPrice').on('input', function () { $('#priceLabel').text(fmt(this.value)); });
+  $('#quickSearch').on('submit', function (e) {
+    e.preventDefault();
+    state = { type: $('#qType').val(), brand: $('#qBrand').val(), max: +$('#qPrice').val() };
+    $('.filter-btn').removeClass('active').filter(`[data-filter="${state.type}"]`).addClass('active');
+    applyFilters();
+    $('html,body').animate({ scrollTop: $('#inventory').offset().top - 70 }, 700);
+  });
+
+  $(document).on('click', '.fav', function () { $(this).toggleClass('on'); });
+  $(document).on('click', '.quick-view', function () {
+    $('#mTitle').text($(this).data('name'));
+    $('#mPrice').text($(this).data('price'));
+    $('#mImg').attr('src', $(this).data('img'));
+    new bootstrap.Modal('#carModal').show();
+  });
+
+  $(document).on('mousemove', '.car-card', function (e) {
+    const r = this.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    $(this).css('transform', `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-8px)`);
+  }).on('mouseleave', '.car-card', function () { $(this).css('transform', ''); });
+
+  $(window).on('scroll', function () {
+    const y = $(this).scrollTop();
+    $('#mainNav').toggleClass('scrolled', y > 60);
+    $('#toTop').toggleClass('show', y > 500);
+    $('section[id],header[id]').each(function () {
+      if (y + 120 >= $(this).offset().top) {
+        $('.nav-link').removeClass('active').filter(`[href="#${this.id}"]`).addClass('active');
+      }
+    });
+  });
+  $('#toTop').on('click', () => $('html,body').animate({ scrollTop: 0 }, 700));
+  $('.navbar-nav a').on('click', () => $('#nav').collapse('hide'));
+
+  const words = $('.typed').data('words'); let w = 0, ch = 0, del = false;
+  (function type() {
+    const word = words[w];
+    $('.typed').text(word.substring(0, ch));
+    if (!del && ch++ === word.length) { del = true; return setTimeout(type, 1400); }
+    if (del && --ch === 0) { del = false; w = (w + 1) % words.length; }
+    setTimeout(type, del ? 60 : 110);
+  })();
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const $el = $(en.target); $el.addClass('visible');
+      $el.find('.counter').add($el.filter('.counter')).each(function () {
+        const $c = $(this), t = +$c.data('target');
+        $({ n: 0 }).animate({ n: t }, { duration: 2000, step: function () { $c.text(Math.floor(this.n).toLocaleString()); }, complete: () => $c.text(t.toLocaleString() + (t >= 1000 ? '+' : '')) });
+      });
+      io.unobserve(en.target);
+    });
+  }, { threshold: .15 });
+  $('.reveal').each((i, el) => { el.style.transitionDelay = (i % 4) * 0.1 + 's'; io.observe(el); });
+
+  function calc() {
+    const P = +$('#cPrice').val(), D = Math.min(+$('#cDown').val(), P), R = +$('#cRate').val(), T = +$('#cTerm').val();
+    const loan = P - D, r = R / 1200;
+    const m = r ? loan * r / (1 - Math.pow(1 + r, -T)) : loan / T;
+    $('#lPrice').text(fmt(P)); $('#lDown').text(fmt(D)); $('#lRate').text(R + '%'); $('#lTerm').text(T + ' months');
+    $('#monthly').text(fmt(m)); $('#totalInt').text(fmt(m * T - loan));
+  }
+  $('#cPrice,#cDown,#cRate,#cTerm').on('input', calc); calc();
+
+ 
+  $('#videoModal').on('shown.bs.modal', () => $('#showVideo')[0].play().catch(() => {}))
+                  .on('hidden.bs.modal', () => $('#showVideo')[0].pause());
+
+
+  $('#fDate').attr('min', new Date().toISOString().split('T')[0]);
+  $('#contactForm').on('submit', function (e) {
+    e.preventDefault(); let ok = true;
+    $(this).find('[required]').each(function () {
+      const bad = !this.value.trim() || (this.type === 'email' && !/^\S+@\S+\.\S+$/.test(this.value));
+      $(this).toggleClass('is-invalid', bad); if (bad) ok = false;
+    });
+    if (ok) { $('#formOk').removeClass('d-none').hide().fadeIn(); this.reset(); setTimeout(() => $('#formOk').fadeOut(), 6000); }
+  });
+
+  $('#yr').text(new Date().getFullYear());
+});
+    </script>
+</body>
+</html>

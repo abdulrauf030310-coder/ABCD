@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc=" crossorigin="anonymous"></script>
+
+    
+    <style>
+        
+    </style>
+
+</head>
+<body>
+    
+     <h1 id="heading">This is HTML</h1> 
+
+     <div id="name" onmouseenter="color_change()" onmouseleave="reset_color()">
+        This is Div
+    </div> 
+     <button onclick="change_text()"> Change Text </button>
+
+    <p>
+        THis is paragraph
+    </p>
+
+    <button id="hide_button">Hide</button>
+    <button id="show_button">Show</button>
+
+    <script>
+         function change_text(){
+             document.getElementById("name").innerHTML = "Wow The text changed"
+         }
+
+             document.getElementById("heading").style.color = "red";
+             document.getElementById("heading").style.background = "green"
+
+         function color_change(){
+         }
+         function reset_color(){
+            //  document.getElementById("name").style.color = "black";
+         }
+    </script>
+
+
+    <script>
+ 
+
+
+         $("#heading").css({
+             "color":"red",
+             "background":"green"
+         })
+
+
+        $("#hide_button").click(function(){
+            $("p").hide();
+        })
+
+        $("#show_button").click(function(){
+            $("p").show();
+        })
+    
+    </script>
+
+
+</body>
+</html>

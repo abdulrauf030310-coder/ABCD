@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Bulb like the future </title>
+</head>
+<body>
+    <img id = " myImage " onclick = " changeImage ( ) " src = " images/omgk.jpeg " width = " 100 " height = " 180 " >
+
+<p> Click the light bulb to turn on/off the light. </p>
+
+<script>
+function changeImage ( ) {
+  var image = document.getElementById ( ' myImage ') ;
+  if ( image.src.match ( " omg.jpeg " ) ) {
+    image.src = " omgk.jpeg " ;
+  } else {
+   image.src = " omg.jpeg " ;
+  }
+}
+</script>
+</body>
+</html>
